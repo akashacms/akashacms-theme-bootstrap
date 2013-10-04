@@ -1,0 +1,20 @@
+{
+  "author": {
+    "name": "David Herron",
+    "email": "david@davidherron.com",
+    "url": "http://nodejs.davidherron.com"
+  },
+  "name": "akashacms-theme-bootstrap",
+  "description": "A theme for AkashaCMS that supports the Twitter Bootstrap framework",
+  "homepage": "https://github.com/robogeek/akashacms-theme-bootstrap",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/robogeek/akashacms-theme-bootstrap.git"
+  },
+  "version": "0.1.1",
+  "engines": {
+    "node": ">=0.10.1"
+  },
+  "dependencies": {
+  }
+}
