@@ -1,0 +1,10 @@
+<ol class="breadcrumb">
+  <% for (var i = 0; i < breadcrumbTrail.length; i++) {
+  	var item = breadcrumbTrail[i];
+  	%><li><a href="<%= item.href %>" <%
+  		if (item.active) {
+  			%> class="active" <%
+  		}
+  		%> ><%= item.anchor %></a><%
+  } %>
+</ol>
