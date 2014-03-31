@@ -3,7 +3,7 @@ var path     = require('path');
 module.exports.config = function(akasha, config) {
     config.root_partials.push(path.join(__dirname, 'partials'));
     config.root_layouts.push(path.join(__dirname, 'layout'));
-    config.root_assets.push(path.join(__dirname, 'bootstrap'));
+    config.root_assets.unshift(path.join(__dirname, 'bootstrap'));
     // config.root_assets.push(path.join(__dirname, 'assets'));
     
     if (config.data.headerScripts) {
@@ -22,6 +22,28 @@ module.exports.config = function(akasha, config) {
         // Bootstrap 3.x
         config.data.headerScripts.javaScriptBottom.push({ href: "http://code.jquery.com/jquery.js" });
         config.data.headerScripts.javaScriptBottom.push({ href: "/bootstrap3/js/bootstrap.min.js" });
+    }
+    
+    config.funcs.bootstrapBreadcrumbs = function(arg, callback) {   
+        var val = akasha.partialSync(config, "bootstrap-breadcrumbs.html.ejs", { breadcrumbTrail: arg.breadcrumbTrail });
+        if (callback) callback(undefined, val);
+        return val;
+    }
+    
+    config.funcs.bootstrapDropdown = function(arg, callback) {   
+        var val = akasha.partialSync(config, "bootstrap-dropdown.html.ejs", {
+        	dropdownId: arg.dropdownId
+        });
+        if (callback) callback(undefined, val);
+        return val;
+    }
+    
+    config.funcs.bootstrap.PanelHeading = function(arg, callback) {   
+        var val = akasha.partialSync(config, "bootstrap-panel-heading.html.ejs", {
+        	header: arg.header
+        });
+        if (callback) callback(undefined, val);
+        return val;
     }
 }
 
