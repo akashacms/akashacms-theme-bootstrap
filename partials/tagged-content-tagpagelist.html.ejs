@@ -1,0 +1,9 @@
+<ul class='list-group'>
+<%
+    for (var j = 0; j < entries.length; j++) {
+        var entry = entries[j];
+        %>
+        <li class="list-group-item"><a href="<%= entry.url %>"><%= entry.title %></a><%= entry.teaser %></li><%
+    }
+%>
+</ul>
