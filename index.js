@@ -24,10 +24,13 @@ module.exports.config = function(akasha, config) {
         config.data.headerScripts.javaScriptBottom.push({ href: "/bootstrap3/js/bootstrap.min.js" });
     }
     
-    config.funcs.bootstrapBreadcrumbs = function(arg, callback) {   
-        var val = akasha.partialSync(config, "bootstrap-breadcrumbs.html.ejs", { breadcrumbTrail: arg.breadcrumbTrail });
-        if (callback) callback(undefined, val);
-        return val;
+    config.funcs.bootstrapBreadcrumbs = function(arg, callback) {
+	var err = new Error("Don't use bootstrapBreadcrumbs - use the breadcrumbs plugin!");
+	callback(err);
+	return err;
+//        var val = akasha.partialSync(config, "bootstrap-breadcrumbs.html.ejs", { breadcrumbTrail: arg.breadcrumbTrail });
+//        if (callback) callback(undefined, val);
+//        return val;
     }
     
     config.funcs.bootstrapDropdown = function(arg, callback) {   
