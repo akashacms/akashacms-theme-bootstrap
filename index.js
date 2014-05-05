@@ -38,7 +38,7 @@ module.exports.config = function(akasha, config) {
         return val;
     }
     
-    config.funcs.bootstrap.PanelHeading = function(arg, callback) {   
+    config.funcs.bootstrapPanelHeading = function(arg, callback) {
         var val = akasha.partialSync(config, "bootstrap-panel-heading.html.ejs", {
         	header: arg.header
         });
