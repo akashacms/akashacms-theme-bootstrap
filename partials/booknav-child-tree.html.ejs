@@ -1,0 +1,18 @@
+<ul class="booknav-tree list-group"><% for (var i in tree) {
+    if (tree[i].type === 'doc') {
+        %><li class="list-group-item">
+            <a href="<%= urlForDoc(tree[i]) %>"><%= tree[i].title %></a>
+            <% if (tree[i].teaser) { %><%= tree[i].teaser %><% } %>
+        </li><%
+    } else {
+        %><li class="list-group-item">
+            <%
+            var url = urlForDir(tree[i]);
+            if (url !== "undefined") {
+                %><a href="<%= url %>"><%= nameForDir(tree[i]) %></a><%
+                if (tree[i].teaser) { %><%= tree[i].teaser %><% }
+            } %>
+            <%- renderSubTree(tree[i]) %>
+        </li><%
+    } %>
+<% } %></ul>
