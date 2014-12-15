@@ -34,7 +34,7 @@ module.exports.config = function(akasha, config) {
     }
     
     config.funcs.bootstrapDropdown = function(arg, callback) {   
-        var val = akasha.partialSync(config, "bootstrap-dropdown.html.ejs", {
+        var val = akasha.partialSync("bootstrap-dropdown.html.ejs", {
         	dropdownId: arg.dropdownId
         });
         if (callback) callback(undefined, val);
@@ -42,7 +42,7 @@ module.exports.config = function(akasha, config) {
     }
     
     config.funcs.bootstrapPanelHeading = function(arg, callback) {
-        var val = akasha.partialSync(config, "bootstrap-panel-heading.html.ejs", {
+        var val = akasha.partialSync("bootstrap-panel-heading.html.ejs", {
         	header: arg.header
         });
         if (callback) callback(undefined, val);
