@@ -24,30 +24,21 @@ module.exports.config = function(akasha, config) {
         config.headerScripts.javaScriptBottom.push({ href: "/bootstrap3/js/bootstrap.min.js" });
     }
     
-    config.funcs.bootstrapBreadcrumbs = function(arg, callback) {
-	var err = new Error("Don't use bootstrapBreadcrumbs - use the breadcrumbs plugin!");
-	callback(err);
-	return err;
-//        var val = akasha.partialSync(config, "bootstrap-breadcrumbs.html.ejs", { breadcrumbTrail: arg.breadcrumbTrail });
-//        if (callback) callback(undefined, val);
-//        return val;
-    }
-    
-    config.funcs.bootstrapDropdown = function(arg, callback) {   
+    /* config.funcs.bootstrapDropdown = function(arg, callback) {   
         var val = akasha.partialSync("bootstrap-dropdown.html.ejs", {
         	dropdownId: arg.dropdownId
         });
         if (callback) callback(undefined, val);
         return val;
-    }
+    } */
     
-    config.funcs.bootstrapPanelHeading = function(arg, callback) {
+    /* config.funcs.bootstrapPanelHeading = function(arg, callback) {
         var val = akasha.partialSync("bootstrap-panel-heading.html.ejs", {
         	header: arg.header
         });
         if (callback) callback(undefined, val);
         return val;
-    }
+    } */
 }
 
 // TBD: HTML filter to change image tags to be responsive http://getbootstrap.com/css/

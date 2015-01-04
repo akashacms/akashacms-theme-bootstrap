@@ -16,7 +16,7 @@ if (typeof pagetitle !== "undefined") {
 } else if (typeof title !== "undefined") {
          %><title><%= title %></title><% 
 } %>
-<%- akDoHeaderMeta(locals) %>
+<ak-header-metatags/>
 <%- partial('ak_sitemap.html.ejs') %>
 <%- partial('ak_siteverification.html.ejs', locals) %>
 <!-- http://en.wikipedia.org/wiki/Canonical_link_element -->
