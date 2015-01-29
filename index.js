@@ -1,3 +1,22 @@
+/**
+ *
+ * Copyright 2013-2015 David Herron
+ * 
+ * This file is part of AkashaCMS-tagged-content (http://akashacms.com/).
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 var path     = require('path');
 
 module.exports.config = function(akasha, config) {
@@ -20,8 +39,8 @@ module.exports.config = function(akasha, config) {
         // config.headerScripts.javaScriptBottom.push({ href: "http://code.jquery.com/jquery.js" });
         // config.headerScripts.javaScriptBottom.push({ href: "/bootstrap/js/bootstrap.min.js" });
         // Bootstrap 3.x
-        config.headerScripts.javaScriptBottom.push({ href: "http://code.jquery.com/jquery.js" });
-        config.headerScripts.javaScriptBottom.push({ href: "/bootstrap3/js/bootstrap.min.js" });
+        config.headerScripts.javaScriptBottom.unshift({ href: "/bootstrap3/js/bootstrap.min.js" });
+        config.headerScripts.javaScriptBottom.unshift({ href: "http://code.jquery.com/jquery.js" });
     }
     
     /* config.funcs.bootstrapDropdown = function(arg, callback) {   
