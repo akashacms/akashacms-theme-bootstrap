@@ -58,6 +58,8 @@ module.exports.config = function(akasha, config) {
         if (callback) callback(undefined, val);
         return val;
     } */
+	
+	return module.exports;
 }
 
 // TBD: HTML filter to change image tags to be responsive http://getbootstrap.com/css/
