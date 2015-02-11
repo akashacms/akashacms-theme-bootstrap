@@ -6,10 +6,10 @@
   },
   "name": "akashacms-theme-bootstrap",
   "description": "A theme for AkashaCMS that supports the Twitter Bootstrap framework",
-  "homepage": "https://github.com/robogeek/akashacms-theme-bootstrap",
+  "homepage": "http://akashacms.com/plugins/theme-bootstrap.html",
   "repository": {
     "type": "git",
-    "url": "git://github.com/robogeek/akashacms-theme-bootstrap.git"
+    "url": "git://github.com/akashacms/akashacms-theme-bootstrap.git"
   },
   "version": "0.1.12",
   "engines": {
