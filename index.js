@@ -17,9 +17,19 @@
  *  limitations under the License.
  */
 
-var path     = require('path');
+var path  = require('path');
+var util  = require('util');
 
-module.exports.config = function(akasha, config) {
+var akasha;
+var config;
+var logger;
+
+module.exports.config = function(_akasha, _config) {
+	akasha = _akasha;
+	config = _config;
+
+	logger = akasha.getLogger("theme-bootstrap");
+	
     config.root_partials.push(path.join(__dirname, 'partials'));
     config.root_layouts.push(path.join(__dirname, 'layout'));
     config.root_assets.unshift(path.join(__dirname, 'bootstrap'));
@@ -78,6 +88,8 @@ module.exports.config = function(akasha, config) {
                 : "//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"
 		});
     }
+    
+    // logger.info(util.inspect(config.headerScripts));
     
     /* config.funcs.bootstrapDropdown = function(arg, callback) {   
         var val = akasha.partialSync("bootstrap-dropdown.html.ejs", {
