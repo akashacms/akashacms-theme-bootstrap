@@ -1,18 +1,21 @@
-<ul class="booknav-tree list-group"><% for (var i in tree) {
-    if (tree[i].type === 'doc') {
+<ul class="booknav-tree list-group"><%
+for (var i = 0; i < tree.children.length; i++) { // in tree) {
+    var item = tree.children[i];
+    // console.log('booknav-child-tree '+ item.type +' '+ item.rendername);
+    if (item.type === 'file' && item.rendername !== 'index.html') {
         %><li class="list-group-item">
-            <a href="<%= urlForDoc(tree[i]) %>"><%= tree[i].title %></a>
-            <% if (tree[i].teaser) { %><%= tree[i].teaser %><% } %>
+            <a href="<%= urlForDoc(item) %>"><%= item.title %></a>
+            <% if (item.teaser) { %><%= item.teaser %><% } %>
         </li><%
-    } else {
+    } else if (item.type === 'dir') {
         %><li class="list-group-item">
             <%
-            var url = urlForDir(tree[i]);
+            var url = urlForDir(item);
             if (url !== "undefined") {
-                %><a href="<%= url %>"><%= nameForDir(tree[i]) %></a><%
-                if (tree[i].teaser) { %><%= tree[i].teaser %><% }
+                %><a href="<%= url %>"><%= item.title ? item.title : url %></a><%
+                if (item.teaser) { %><%= item.teaser %><% }
             } %>
-            <%- renderSubTree(tree[i]) %>
+            <%- renderSubTree(item) %>
         </li><%
     } %>
 <% } %></ul>
