@@ -40,7 +40,8 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 
 /* -- These are optional addons which work with Bootstrap
  * -- However, the site configurer can configure these easily
- * 
+ * -- or else this can export a function which can be called from config
+ *         config.plugin('akashacms-theme-bootstrap').useHtml5Shiv() ... etc
 		if (config.themeBootstrap.useHtml5shiv) {
 			config.headerScripts.javaScriptTop.unshift({
 				href: config.themeBootstrap.html5shivUrl
