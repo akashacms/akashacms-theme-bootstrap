@@ -36,7 +36,7 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 		config.addPartialsDir(path.join(__dirname, 'partials'));
 	}
 
-}
+};
 
 /* -- These are optional addons which work with Bootstrap
  * -- However, the site configurer can configure these easily
