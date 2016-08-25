@@ -1,7 +1,7 @@
 /**
  *
  * Copyright 2013-2015 David Herron
- * 
+ *
  * This file is part of AkashaCMS-tagged-content (http://akashacms.com/).
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,7 @@
 
 const path  = require('path');
 const akasha = require('akasharender');
+const async  = require('async');
 
 const log   = require('debug')('akasha:theme-bootstrap-plugin');
 const error = require('debug')('akasha:error-theme-bootstrap-plugin');
@@ -30,13 +31,29 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 	constructor() {
 		super("akashacms-theme-bootstrap");
 	}
-	
+
 	configure(config) {
         this._config = config;
 		config.addPartialsDir(path.join(__dirname, 'partials'));
+		config.addMahabhuta(module.exports.mahabhuta);
 	}
 
 };
+
+module.exports.mahabhuta = [
+
+	function($, metadata, dirty, done) {
+		var elements = [];
+		$('.embed-responsive iframe').each((i, elem) => { elements.push(elem); });
+		async.eachSeries(elements, (element, next) => {
+			$(element).addClass("embed-responsive-item");
+			next();
+		}, function(err) {
+			if (err) done(err);
+			else done();
+		});
+	}
+];
 
 /* -- These are optional addons which work with Bootstrap
  * -- However, the site configurer can configure these easily
@@ -62,5 +79,3 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 */
 
 // TBD: HTML filter to change image tags to be responsive http://getbootstrap.com/css/
-
-
