@@ -1,5 +1,5 @@
-<div class="framed-video-player">
-    <h3><%= title %></h3>
+<div class="panel panel-default framed-video-player">
+    <div class="panel-heading"><h3><%= title %></h3></div>
     <p>Source: <a href="<%= embedUrl %>" rel="nofollow"><%= embedSource %></a></p>
     <% if ((typeof hideDescription === "undefined" || ! hideDescription) && description) {
     		%><%= description %><%
