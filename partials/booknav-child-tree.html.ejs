@@ -12,8 +12,12 @@ for (var i = 0; i < tree.children.length; i++) { // in tree) {
             <%
             var url = urlForDir(item);
             if (url !== "undefined") {
-                %><a href="<%= url %>"><%= item.title ? item.title : url %></a><%
-                if (item.teaser) { %><%= item.teaser %><% }
+                // % ><a href="< %= url % >">< %= item.title ? item.title : url % ></a>< %
+                %><%- url %><%
+                if (item.teaser) { %>: <%= item.teaser %><% }
+            } else {
+                %><%= item.dirpath %><%
+                if (item.teaser) { %>: <%= item.teaser %><% }
             } %>
             <%- renderSubTree(item) %>
         </li><%
