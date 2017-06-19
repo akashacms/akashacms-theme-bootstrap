@@ -16,15 +16,13 @@ Add the following to `package.json`
 ```
 "dependencies": {
     ...
-    "akashacms-theme-bootstrap": "akashacms/akashacms-theme-bootstrap#akasharender",
+    "akashacms-theme-bootstrap": ">=0.6",
     ...
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     ...
 }
 ```
-
-The AkashaRender version of `akashacms-theme-bootstrap` has not been published to `npm` yet, and therefore must be referenced this way.
 
 The `bootstrap` and `jquery` modules don't provide any Node.js functionality, but are a quick way to access the Bootstrap and jQuery libraries.  Both of them can be retrieved using the corresponding CDN URL's, if you prefer.
 

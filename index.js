@@ -41,7 +41,7 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 };
 
 module.exports.mahabhuta = [
-
+    // TODO update to use Munger
 	function($, metadata, dirty, done) {
 		var elements = [];
 		$('.embed-responsive iframe').each((i, elem) => { elements.push(elem); });
