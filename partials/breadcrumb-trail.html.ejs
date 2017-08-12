@@ -1,8 +1,8 @@
 <div id="breadcrumbTrail">
     <ol class="breadcrumb">
     <%
-    for (var i in breadcrumbs) {
-        %> <li> <a href="<%= breadcrumbs[i].path %>"><%= breadcrumbs[i].title %></a> </li><%
+    for (var crumb of breadcrumbs) {
+        %> <li> <a href="<%= crumb.path %>"><%= crumb.title %></a> </li><%
     }
     %>
     </ol>
