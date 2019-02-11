@@ -1,0 +1,20 @@
+
+<div class="panel panel-default" id="panel-<%- id %>">
+<div class="panel-heading" role="tab" id="heading-<%- id %>">
+<h2 class="panel-title">
+<a <%- collapsed_title %> role="button" data-toggle="collapse" 
+    data-parent="#<%- parentID %>" href="#collapse-<%- id %>" 
+    aria-expanded="true" aria-controls="collapse-<%- id %>">
+<%= title %>
+</a>
+</h2>
+</div>
+<div id="collapse-<%- id %>" class="panel-collapse <%- collapsed_panel %>" 
+      role="tabpanel" aria-labelledby="heading-<%- id %>">
+<div class="panel-body">
+
+<%- content %>
+
+</div>
+</div>
+</div>
