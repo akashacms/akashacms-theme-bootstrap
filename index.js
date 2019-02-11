@@ -27,10 +27,11 @@ const mahabhuta = akasha.mahabhuta;
 // const log   = require('debug')('akasha:theme-bootstrap-plugin');
 // const error = require('debug')('akasha:error-theme-bootstrap-plugin');
 
+const pluginName = "akashacms-theme-bootstrap";
 
 module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 	constructor() {
-		super("akashacms-theme-bootstrap");
+		super(pluginName);
 	}
 
 	configure(config) {
