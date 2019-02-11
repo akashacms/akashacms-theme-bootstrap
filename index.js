@@ -21,10 +21,11 @@
 
 const path  = require('path');
 const akasha = require('akasharender');
-const async  = require('async');
+const mahabhuta = akasha.mahabhuta;
+// const async  = require('async');
 
-const log   = require('debug')('akasha:theme-bootstrap-plugin');
-const error = require('debug')('akasha:error-theme-bootstrap-plugin');
+// const log   = require('debug')('akasha:theme-bootstrap-plugin');
+// const error = require('debug')('akasha:error-theme-bootstrap-plugin');
 
 
 module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
@@ -40,7 +41,9 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 
 };
 
-module.exports.mahabhuta = [
+module.exports.mahabhuta = new mahabhuta.MahafuncArray(pluginName, {});
+
+/* module.exports.mahabhuta.addMahafunc([
     // TODO update to use Munger
 	function($, metadata, dirty, done) {
 		var elements = [];
@@ -53,7 +56,56 @@ module.exports.mahabhuta = [
 			else done();
 		});
 	}
-];
+]); */
+
+class EmbedResponsiveIframe extends mahabhuta.Munger {
+	get selector() { return '.embed-responsive iframe'; }
+
+	process($, $link, metadata, dirty, done) {
+		$link.addClass("embed-responsive-item");
+	}
+}
+module.exports.mahabhuta.addMahafunc(new EmbedResponsiveIframe());
+
+class CollapseContainer extends mahabhuta.CustomElement {
+    get elementName() { return "collapse-container"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "panel-group.html.ejs";
+        const id = $element.attr('id');
+        dirty();
+        return akasha.partial(metadata.config, template, {
+			id: id,
+			content: $element.html()
+		});
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CollapseContainer());
+
+class CollapseItem extends mahabhuta.CustomElement {
+    get elementName() { return "collapse-item"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "collapse-item.html.ejs";
+        const parentID = $element.attr('parent-id');
+        const id = $element.attr('id');
+		const title = $element.attr('title');
+		const collapsed = $element.attr('collapsed');
+		const is_collapsed = typeof collapsed !== 'undefined';
+        dirty();
+        return akasha.partial(metadata.config, template, {
+			parentID, id, title,
+			collapsed_title: is_collapsed ? 'class="collapsed"' : '',
+			collapsed_panel: is_collapsed ? 'collapse' : 'collapse in',
+			content: $element.html()
+		});
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CollapseItem());
+
+
 
 /* -- These are optional addons which work with Bootstrap
  * -- However, the site configurer can configure these easily
