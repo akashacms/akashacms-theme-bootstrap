@@ -13,10 +13,9 @@
   },
   "version": "0.6.4",
   "engines": {
-    "node": ">=0.10.1"
+    "node": ">=10.1.x"
   },
   "dependencies": {
-    "async": "*",
-    "debug": "^2.2.0"
+    "bootstrap": "^4.3.x"
   }
 }

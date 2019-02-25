@@ -1,9 +1,11 @@
-<div id="breadcrumbTrail">
+<nav aria-label="breadcrumb" id="breadcrumbTrail">
     <ol class="breadcrumb">
     <%
     for (var crumb of breadcrumbs) {
-        %> <li> <a href="<%= crumb.path %>"><%= crumb.title %></a> </li><%
+        %> <li class="breadcrumb-item <%
+            if (crumb.active) { %> active<% }
+        %>"> <a href="<%= crumb.path %>"><%= crumb.title %></a> </li><%
     }
     %>
     </ol>
-</div>
+</nav>

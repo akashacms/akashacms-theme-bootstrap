@@ -22,10 +22,6 @@
 const path  = require('path');
 const akasha = require('akasharender');
 const mahabhuta = akasha.mahabhuta;
-// const async  = require('async');
-
-// const log   = require('debug')('akasha:theme-bootstrap-plugin');
-// const error = require('debug')('akasha:error-theme-bootstrap-plugin');
 
 const pluginName = "akashacms-theme-bootstrap";
 
@@ -73,7 +69,7 @@ class CollapseContainer extends mahabhuta.CustomElement {
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
                 ? $element.attr('template')
-                : "panel-group.html.ejs";
+                : "collapse-container.html.ejs";
         const id = $element.attr('id');
         dirty();
         return akasha.partial(metadata.config, template, {
