@@ -90,12 +90,9 @@ class CollapseItem extends mahabhuta.CustomElement {
         const id = $element.attr('id');
 		const title = $element.attr('title');
 		const collapsed = $element.attr('collapsed');
-		const is_collapsed = typeof collapsed !== 'undefined';
         dirty();
         return akasha.partial(metadata.config, template, {
-			parentID, id, title,
-			collapsed_title: is_collapsed ? 'class="collapsed"' : '',
-			collapsed_panel: is_collapsed ? 'collapse' : 'collapse in',
+			parentID, id, title, collapsed,
 			content: $element.html()
 		});
     }
