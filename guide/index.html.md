@@ -92,5 +92,118 @@ config
 
 # Custom Tags
 
+This plugin provides a few Bootstrap-specific custom elements that surface some of the more useful Bootstrap widgets.  Using these custom tags simplifies using those Bootstrap components.  While you could always dig out the HTML snippets specified by the Bootstrap team, they are rather onerous to use.
 
-TODO - Have not written this yet.  Study the source code for clues.
+## Accordion-style collapsible sections
+
+In Bootstrap, accordion-style collapses use an outer container to control the collapse sections, and then inner elements for each collapsible section.
+
+We modeled this as two distinct custom tags.  The first, `collapse-container`, is used as so:
+
+```html
+<collapse-container id="accordion1">
+    .. put collapse-item's here
+</collapse-container>
+```
+
+The second, `collapse-item`, is an individual collapsible section.
+
+```html
+<collapse-item parent-id="accordion1" id="any-id-value-you-like" 
+    title="---text for the title of the collapse section---">
+    .. Put content here
+</collapse-item>
+```
+
+Put together the code looks like so:
+
+```html
+<collapse-container id="accordion1">
+    <collapse-item parent-id="accordion1" id="collapse-item-1" 
+        title="First collapsible item">
+            Text for first collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-2" 
+        title="Second collapsible item">
+            Text for second collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-3" 
+        title="Third collapsible item">
+            Text for third collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-4" 
+        title="Fourth collapsible item">
+            Text for fourth collapsible item
+    </collapse-item>
+</collapse-container>
+```
+
+Which looks like this:
+
+<collapse-container id="accordion1">
+    <collapse-item parent-id="accordion1" id="collapse-item-1" 
+        title="First collapsible item">
+            Text for first collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-2" 
+        title="Second collapsible item">
+            Text for second collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-3" 
+        title="Third collapsible item">
+            Text for third collapsible item
+    </collapse-item>
+    <collapse-item parent-id="accordion1" id="collapse-item-4" 
+        title="Fourth collapsible item">
+            Text for fourth collapsible item
+    </collapse-item>
+</collapse-container>
+
+## Image carousels
+
+Another useful Bootstrap widget, Carousels, let you organize a few images in a rotating slide show.  The Bootstrap widget has support for captions on each image, and many other things.  Only a part of the Bootstrap functionality is exposed at this time.
+
+Again it is modeled with a container, `carousel-container`, and individual items, `carousel-item`.
+
+A complete example would be:
+
+```html
+<carousel-container id="carousel1">
+    <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        captionbody="Aptera">
+    </carousel-item>
+    <carousel-item href="img/2009_green_bike.jpg" 
+        captionbody="Vectrix electric maxi-scooter">
+    </carousel-item>
+    <carousel-item href="img/loladrayson-3-web.jpg" 
+        captionbody="Drayson Racing electric race car based on Lola chassis">
+    </carousel-item>
+    <carousel-item href="img/karma18-web.jpg" 
+        captionbody="Fisker Karma">
+    </carousel-item>
+    <carousel-item href="img/PP125.jpg" 
+       captionbody="UQM drive train for electric vehicles">
+    </carousel-item>
+</carousel-container>
+```
+
+And it looks like this:
+
+<carousel-container id="carousel1">
+    <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        captionbody="Aptera">
+    </carousel-item>
+    <carousel-item href="img/2009_green_bike.jpg" 
+        captionbody="Vectrix electric maxi-scooter">
+    </carousel-item>
+    <carousel-item href="img/loladrayson-3-web.jpg" 
+        captionbody="Drayson Racing electric race car based on Lola chassis">
+    </carousel-item>
+    <carousel-item href="img/karma18-web.jpg" 
+        captionbody="Fisker Karma">
+    </carousel-item>
+    <carousel-item href="img/PP125.jpg" 
+       captionbody="UQM drive train for electric vehicles">
+    </carousel-item>
+</carousel-container>
+
