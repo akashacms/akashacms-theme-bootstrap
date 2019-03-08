@@ -102,6 +102,45 @@ class CollapseItem extends mahabhuta.CustomElement {
 }
 module.exports.mahabhuta.addMahafunc(new CollapseItem());
 
+class CarouselContainer extends mahabhuta.CustomElement {
+    get elementName() { return "carousel-container"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "carousel-container.html.ejs";
+		const id = $element.attr('id');
+		const optionalClasses = $element.attr('optional-classes');
+        dirty();
+        return akasha.partial(metadata.config, template, {
+			id: id,
+			optionalclasses: optionalClasses,
+			content: $element.html()
+		});
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CarouselContainer());
+
+class CarouselItem extends mahabhuta.CustomElement {
+    get elementName() { return "carousel-item"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "carousel-item.html.ejs";
+        const parentID = $element.attr('parent-id');
+        const id = $element.attr('id');
+		const title = $element.attr('title');
+		const alt = $element.attr('alt');
+		const isactive = $element.attr('isactive');
+		const captiontitle = $element.attr('captiontitle');
+		const captionbody = $element.attr('captionbody');
+        dirty();
+        return akasha.partial(metadata.config, template, {
+			parentID, id, title, alt, isactive, captiontitle, captionbody,
+			content: $element.html()
+		});
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CarouselItem());
 
 
 /* -- These are optional addons which work with Bootstrap
