@@ -214,6 +214,7 @@ We often want to show some information or ask for data using a modal window.  Th
 <button-launched-modal id="example-modal" 
                        title="Example Button-Launched Modal"
                        close-button-text="Inchide"
+                       button-text="View example Modal"
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
 
 Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
@@ -257,6 +258,7 @@ Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, ve
 ```html
 <button-launched-modal id="example-carousel-modal" 
                        title="Example Button-Launched Modal with Carousel"
+                       button-text="View example carousel modal"
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
 
 <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
