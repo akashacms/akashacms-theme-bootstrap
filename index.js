@@ -114,7 +114,7 @@ class CarouselContainer extends mahabhuta.CustomElement {
 				const width = $element.attr('width')
 						? $element.attr('width') : "100%";
 				const style = $element.attr('style')
-						? $element.attr('style') : "";
+						? `style="${$element.attr('style')}"` : "";
         return akasha.partial(metadata.config, template, {
 			id: id,
 			width, style, optionalclasses,
@@ -143,7 +143,7 @@ class CarouselItem extends mahabhuta.CustomElement {
 		const width = $element.attr('width')
 				? $element.attr('width') : "100%";
 		const style = $element.attr('style')
-				? $element.attr('style') : "";
+				? `style="${$element.attr('style')}"` : "";
 		const data = {
 			href, alt, isactive, captiontitle, captionbody,
 			width, style

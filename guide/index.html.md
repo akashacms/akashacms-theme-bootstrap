@@ -5,13 +5,13 @@ title: AskashaCMS Bootstrap Theme plugin documentation
 
 The Bootstrap v4 framework contains many useful responsive HTML5 goodies that can improve the look of your website.  
 
-It provides some Bootstrap-centric overrides to partial's provided by other plugins.  Hence, you get a "quick win" just by installing the theme.
-
-The next primary usage is to use the Bootstrap CSS grid for page layout in your templates.
+It's quite possible to use Bootstrap by listing the corresponding packages in your `package.json` and doing a little bit of configuration.  However, this plugin provides some Bootstrap-centric overrides to partial's provided by other plugins.  Hence, you get a "quick win" just by installing this theme plugin.
 
 # Installation
 
-Add the following to `package.json`
+It was decided that the Bootstrap theme should not itself install the Bootstrap packages and load them in your pages.  This is because you may want to use a customized Bootstrap.
+
+Therefore the following should be added to the `package.json` of your AkashaCMS project:
 
 ```json
 "dependencies": {
@@ -25,15 +25,15 @@ Add the following to `package.json`
 }
 ```
 
-At the moment Bootstrap v4 support is experimental and instead requires this dependency:
+Normally the `akashacms-theme-bootstrap` plugin would be loaded as above.  BUT, At the moment Bootstrap v4 support is experimental and instead requires this dependency:
 
 ```json
 "akashacms-theme-bootstrap": "akashacms/akashacms-theme-bootstrap#bootstrapv4",
 ```
 
-The `bootstrap`, `popper.js` and `jquery` modules don't provide any Node.js functionality, but are a quick way to access the Bootstrap and jQuery libraries.  Both of them can be retrieved using the corresponding CDN URL's, if you prefer.
+The `bootstrap`, `popper.js` and `jquery` modules don't provide any Node.js functionality, but are a quick way to access the Bootstrap and jQuery libraries.  All of them can be retrieved using the corresponding CDN URL's, if you prefer.
 
-Once added to `package.json` run: `npm install`
+Once added to `package.json` run: `npm install` to download the packages.
 
 # Configuration
 
