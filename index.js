@@ -111,7 +111,6 @@ class CarouselContainer extends mahabhuta.CustomElement {
 		const id = $element.attr('id');
 		const optionalclasses = $element.attr('optional-classes')
 				? $element.attr('optional-classes') : "";
-        dirty();
         return akasha.partial(metadata.config, template, {
 			id: id,
 			optionalclasses,
@@ -137,11 +136,11 @@ class CarouselItem extends mahabhuta.CustomElement {
 				? "active" : "";
 		const captiontitle = $element.attr('captiontitle');
 		const captionbody = $element.attr('captionbody');
-        dirty();
-        return akasha.partial(metadata.config, template, {
-			alt, isactive, captiontitle, captionbody,
-			content: $element.html()
-		});
+		const data = {
+			href, alt, isactive, captiontitle, captionbody
+		};
+		// console.log(`carousel-item sending data `, data);
+        return akasha.partial(metadata.config, template, data);
     }
 }
 module.exports.mahabhuta.addMahafunc(new CarouselItem());
