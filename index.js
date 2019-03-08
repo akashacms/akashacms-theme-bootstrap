@@ -111,10 +111,10 @@ class CarouselContainer extends mahabhuta.CustomElement {
 		const id = $element.attr('id');
 		const optionalclasses = $element.attr('optional-classes')
 				? $element.attr('optional-classes') : "";
-				const width = $element.attr('width')
-						? $element.attr('width') : "100%";
-				const style = $element.attr('style')
-						? `style="${$element.attr('style')}"` : "";
+		const width = $element.attr('width')
+				? $element.attr('width') : "100%";
+		const style = $element.attr('style')
+				? `style="${$element.attr('style')}"` : "";
         return akasha.partial(metadata.config, template, {
 			id: id,
 			width, style, optionalclasses,
@@ -153,6 +153,32 @@ class CarouselItem extends mahabhuta.CustomElement {
     }
 }
 module.exports.mahabhuta.addMahafunc(new CarouselItem());
+
+class ButtonModal extends mahabhuta.CustomElement {
+    get elementName() { return "button-launched-modal"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "button-modal.html.ejs";
+		const id = $element.attr('id');
+		if (!id || id === '') {
+			throw new Error(`carousel-item requires an id value`);
+		}
+		const title = $element.attr('title');
+		const modelAdditionalClasses = $element.attr('additional-classes')
+				? $element.attr('additional-classes') : "";
+		const closeButtonText = $element.attr('close-button-text')
+				? $element.attr('close-button-text') : "Close";
+		dirty();
+		const data = {
+			id, title, modelAdditionalClasses, closeButtonText,
+			content: $element.html()
+		};
+		// console.log(`carousel-item sending data `, data);
+        return akasha.partial(metadata.config, template, data);
+    }
+}
+module.exports.mahabhuta.addMahafunc(new ButtonModal());
 
 
 /* -- These are optional addons which work with Bootstrap

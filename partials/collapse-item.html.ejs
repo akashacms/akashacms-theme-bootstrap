@@ -28,7 +28,7 @@
                 data-toggle="collapse" 
                 data-target="#collapse-<%- id %>" 
                 aria-expanded="<%
-                    if (collapsed) { %>false<% }
+                    if (typeof collapsed !== 'undefined' && collapsed !== '') { %>false<% }
                     else { %>true<% }
                 %>" 
                 aria-controls="collapse-<%- id %>">

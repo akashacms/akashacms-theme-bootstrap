@@ -207,3 +207,96 @@ And it looks like this:
     </carousel-item>
 </carousel-container>
 
+## Modal dialogs launched by a button
+
+We often want to show some information or ask for data using a modal window.  This custom element makes it easy to create such a thing.
+
+<button-launched-modal id="example-modal" 
+                       title="Example Button-Launched Modal"
+                       close-button-text="Inchide"
+                       additional-classes="modal-dialog-scrollable modal-dialog-centered">
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+</button-launched-modal>
+
+```html
+<button-launched-modal id="example-carousel-modal" 
+                       title="Example Button-Launched Modal with Carousel"
+                       additional-classes="modal-dialog-scrollable modal-dialog-centered">
+
+<carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+    captionbody="Aptera">
+</carousel-item>
+<carousel-item href="img/2009_green_bike.jpg" 
+    captionbody="Vectrix electric maxi-scooter">
+</carousel-item>
+<carousel-item href="img/loladrayson-3-web.jpg" 
+    captionbody="Drayson Racing electric race car based on Lola chassis">
+</carousel-item>
+<carousel-item href="img/karma18-web.jpg" 
+    captionbody="Fisker Karma">
+</carousel-item>
+<carousel-item href="img/PP125.jpg" 
+    captionbody="UQM drive train for electric vehicles">
+</carousel-item>
+
+</button-launched-modal>
+```
+
+
+<button-launched-modal id="example-carousel-modal" 
+                       title="Example Button-Launched Modal with Carousel"
+                       additional-classes="modal-dialog-scrollable modal-dialog-centered">
+
+<carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+    captionbody="Aptera">
+</carousel-item>
+<carousel-item href="img/2009_green_bike.jpg" 
+    captionbody="Vectrix electric maxi-scooter">
+</carousel-item>
+<carousel-item href="img/loladrayson-3-web.jpg" 
+    captionbody="Drayson Racing electric race car based on Lola chassis">
+</carousel-item>
+<carousel-item href="img/karma18-web.jpg" 
+    captionbody="Fisker Karma">
+</carousel-item>
+<carousel-item href="img/PP125.jpg" 
+    captionbody="UQM drive train for electric vehicles">
+</carousel-item>
+
+</button-launched-modal>
