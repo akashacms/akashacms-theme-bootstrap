@@ -18,7 +18,9 @@
     </div>
 
     <div id="collapse-<%- id %>" 
-            class="collapse show" 
+            class="collapse <%
+                if (typeof collapsed === 'undefined' || collapsed === '') { %> show <% }
+            %>" 
             aria-labelledby="heading-<%- id %>" 
             data-parent="#<%- parentID %>">
       <div class="card-body">
