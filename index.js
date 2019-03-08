@@ -90,11 +90,13 @@ class CollapseItem extends mahabhuta.CustomElement {
         const id = $element.attr('id');
 		const title = $element.attr('title');
 		const collapsed = $element.attr('collapsed');
-        dirty();
-        return akasha.partial(metadata.config, template, {
+		dirty();
+		const data = {
 			parentID, id, title, collapsed,
 			content: $element.html()
-		});
+		};
+		console.log(`collapse-item data `, data);
+        return akasha.partial(metadata.config, template, data);
     }
 }
 module.exports.mahabhuta.addMahafunc(new CollapseItem());
