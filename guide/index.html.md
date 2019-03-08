@@ -263,7 +263,6 @@ Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, ve
                        close-button-text="Inchide"
                        button-text="View example Modal"
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
-
 Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 
 Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
@@ -299,7 +298,6 @@ Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac fa
 Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
 
 Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-
 </button-launched-modal>
 
 ```html
@@ -332,7 +330,6 @@ Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, ve
                        title="Example Button-Launched Modal with Carousel"
                        button-text="View example carousel modal"
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
-
 <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
     captionbody="Aptera">
 </carousel-item>
@@ -348,5 +345,4 @@ Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, ve
 <carousel-item href="img/PP125.jpg" 
     captionbody="UQM drive train for electric vehicles">
 </carousel-item>
-
 </button-launched-modal>
