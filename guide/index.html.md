@@ -124,15 +124,15 @@ Put together the code looks like so:
             Text for first collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-2" 
-        title="Second collapsible item">
+        title="Second collapsible item" collapsed="true">
             Text for second collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-3" 
-        title="Third collapsible item">
+        title="Third collapsible item" collapsed="true">
             Text for third collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-4" 
-        title="Fourth collapsible item">
+        title="Fourth collapsible item" collapsed="true">
             Text for fourth collapsible item
     </collapse-item>
 </collapse-container>
@@ -146,15 +146,15 @@ Which looks like this:
             Text for first collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-2" 
-        title="Second collapsible item">
+        title="Second collapsible item" collapsed="true">
             Text for second collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-3" 
-        title="Third collapsible item">
+        title="Third collapsible item" collapsed="true">
             Text for third collapsible item
     </collapse-item>
     <collapse-item parent-id="accordion1" id="collapse-item-4" 
-        title="Fourth collapsible item">
+        title="Fourth collapsible item" collapsed="true">
             Text for fourth collapsible item
     </collapse-item>
 </collapse-container>

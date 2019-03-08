@@ -162,16 +162,20 @@ class ButtonModal extends mahabhuta.CustomElement {
                 : "button-modal.html.ejs";
 		const id = $element.attr('id');
 		if (!id || id === '') {
-			throw new Error(`carousel-item requires an id value`);
+			throw new Error(`button-launched-modal requires an id value`);
 		}
 		const title = $element.attr('title');
 		const modelAdditionalClasses = $element.attr('additional-classes')
 				? $element.attr('additional-classes') : "";
 		const closeButtonText = $element.attr('close-button-text')
 				? $element.attr('close-button-text') : "Close";
+		const buttonText = $element.attr('button-text');
+		if (!buttonText || buttonText === '') {
+			throw new Error(`button-launched-modal requires a button-text value`);
+		}
 		dirty();
 		const data = {
-			id, title, modelAdditionalClasses, closeButtonText,
+			id, title, modelAdditionalClasses, closeButtonText, buttonText,
 			content: $element.html()
 		};
 		// console.log(`carousel-item sending data `, data);
