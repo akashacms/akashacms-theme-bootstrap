@@ -1,5 +1,6 @@
 <div class="carousel-item <%= isactive %>">
-    <img src="<%= href %>" class="d-block w-100" alt="<%= alt %>">
+    <img src="<%= href %>" class="d-block w-100" alt="<%= alt %>"
+            width="<%= width %>" <%- style %> >
     <% if (typeof captiontitle !== 'undefined' || typeof captionbody !== 'undefined') { %>
         <div class="carousel-caption d-none d-md-block">
           <% if (typeof captiontitle !== 'undefined') { %>
