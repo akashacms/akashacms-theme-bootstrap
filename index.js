@@ -109,11 +109,12 @@ class CarouselContainer extends mahabhuta.CustomElement {
                 ? $element.attr('template')
                 : "carousel-container.html.ejs";
 		const id = $element.attr('id');
-		const optionalClasses = $element.attr('optional-classes');
+		const optionalclasses = $element.attr('optional-classes')
+				? $element.attr('optional-classes') : "";
         dirty();
         return akasha.partial(metadata.config, template, {
 			id: id,
-			optionalclasses: optionalClasses,
+			optionalclasses,
 			content: $element.html()
 		});
     }
@@ -126,16 +127,19 @@ class CarouselItem extends mahabhuta.CustomElement {
         const template = $element.attr('template') 
                 ? $element.attr('template')
                 : "carousel-item.html.ejs";
-        const parentID = $element.attr('parent-id');
-        const id = $element.attr('id');
-		const title = $element.attr('title');
-		const alt = $element.attr('alt');
-		const isactive = $element.attr('isactive');
+		const href = $element.attr('href');
+		if (!href || href === '') {
+			throw new Error(`carousel-item requires an href value`);
+		}
+		const alt = $element.attr('alt')
+				? $element.attr('alt') : "";
+		const isactive = $element.attr('isactive')
+				? "active" : "";
 		const captiontitle = $element.attr('captiontitle');
 		const captionbody = $element.attr('captionbody');
         dirty();
         return akasha.partial(metadata.config, template, {
-			parentID, id, title, alt, isactive, captiontitle, captionbody,
+			alt, isactive, captiontitle, captionbody,
 			content: $element.html()
 		});
     }
