@@ -39,7 +39,7 @@ Once added to `package.json` run: `npm install`
 
 Add the following to `config.js`
 
-```
+```js
 config
     .addAssetsDir({
         src: 'node_modules/bootstrap/dist',
@@ -57,7 +57,7 @@ config
 
 This first section mounts the jQuery and Bootstrap distribution into your website.  The files you would have accessed via the corresponding CDN's are available in `/vendor/jquery` and `/vendor/bootstrap` within the rendered site.
 
-```
+```js
 config
     ...
     .use(require('akashacms-theme-bootstrap'))
@@ -66,7 +66,7 @@ config
 
 This adds the AkashaCMS plugin to your configuration.
 
-```
+```js
 config
     .addFooterJavaScript({
         href: "/vendor/jquery/jquery.min.js"
@@ -84,7 +84,7 @@ config
 
 This adds the JavaScript and CSS files to every page of your website.  Adding a custom Bootstrap theme is as simple as this:
 
-```
+```js
 config
     .addStylesheet({       href: "/vendor/bootswatch-readable/bootstrap.min.css" })
     .addStylesheet({       href: "/style.css" });
