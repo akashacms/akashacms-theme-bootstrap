@@ -95,7 +95,7 @@ class CollapseItem extends mahabhuta.CustomElement {
 			parentID, id, title, collapsed,
 			content: $element.html()
 		};
-		console.log(`collapse-item data `, data);
+		// console.log(`collapse-item data `, data);
         return akasha.partial(metadata.config, template, data);
     }
 }

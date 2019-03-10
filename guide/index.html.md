@@ -68,26 +68,18 @@ This adds the AkashaCMS plugin to your configuration.
 
 ```js
 config
-    .addFooterJavaScript({
-        href: "/vendor/jquery/jquery.min.js"
-    })
-    .addFooterJavaScript({
-        href: "/vendor/popper.js/umd/popper.min.js"
-    })
-    .addFooterJavaScript({
-        href: "/vendor/bootstrap/js/bootstrap.min.js"
-    })
-    .addStylesheet({
-        href: "/vendor/bootstrap/css/bootstrap.min.css"
-    })
+    .addFooterJavaScript({ href: "/vendor/jquery/jquery.min.js" })
+    .addFooterJavaScript({ href: "/vendor/popper.js/umd/popper.min.js" })
+    .addFooterJavaScript({ href: "/vendor/bootstrap/js/bootstrap.min.js" })
+    .addStylesheet({ href: "/vendor/bootstrap/css/bootstrap.min.css" })
 ```
 
 This adds the JavaScript and CSS files to every page of your website.  Adding a custom Bootstrap theme is as simple as this:
 
 ```js
 config
-    .addStylesheet({       href: "/vendor/bootswatch-readable/bootstrap.min.css" })
-    .addStylesheet({       href: "/style.css" });
+    .addStylesheet({ href: "/vendor/bootswatch-readable/bootstrap.min.css" })
+    .addStylesheet({ href: "/style.css" });
 ```
 
 # Custom Tags
