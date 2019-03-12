@@ -90,9 +90,10 @@ class CollapseItem extends mahabhuta.CustomElement {
         const id = $element.attr('id');
 		const title = $element.attr('title');
 		const collapsed = $element.attr('collapsed');
+		const thumburl = $element.attr('thumb-url');
 		dirty();
 		const data = {
-			parentID, id, title, collapsed,
+			parentID, id, title, collapsed, thumburl,
 			content: $element.html()
 		};
 		// console.log(`collapse-item data `, data);
