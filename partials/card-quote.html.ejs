@@ -1,5 +1,8 @@
 <div class="card <%= additionalClasses %>" <%
     if (typeof id !== 'undefined' && id !== '') { %>id="<%= id %>"<% }
+    if (typeof style !== 'undefined' && style !== '') {
+        %> style="<%= style %>" <%
+    }
     %>>
     <% if (typeof cardImageTop !== 'undefined' && cardImageTop !== '') { %>
         <img src="<%= cardImageTop %>" class="card-img-top" <%

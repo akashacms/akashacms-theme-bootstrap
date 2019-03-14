@@ -192,6 +192,7 @@ class CardBlock extends mahabhuta.CustomElement {
                 : "card.html.ejs";
         const id = $element.attr('id');
         const header = $element.attr('header');
+        const style = $element.attr('style');
         const additionalClasses = $element.attr('additional-classes')
                 ? $element.attr('additional-classes') : "";
         const bodyHeader = $element.attr('body-header')
@@ -204,7 +205,7 @@ class CardBlock extends mahabhuta.CustomElement {
                 ? $element.attr('card-image-style') : "";
         dirty();
         const data = {
-            id, header, additionalClasses, bodyHeader, 
+            id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
             content: $element.html()
         };
@@ -222,6 +223,7 @@ class CardQuote extends mahabhuta.CustomElement {
                 : "card-quote.html.ejs";
         const id = $element.attr('id');
         const header = $element.attr('header');
+        const style = $element.attr('style');
         const additionalClasses = $element.attr('additional-classes')
                 ? $element.attr('additional-classes') : "";
         const bodyHeader = $element.attr('body-header')
@@ -238,7 +240,7 @@ class CardQuote extends mahabhuta.CustomElement {
                 ? $element.attr('quote-title') : "";
         dirty();
         const data = {
-            id, header, additionalClasses, bodyHeader, 
+            id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
             quoteSource, quoteTitle,
             content: $element.html()
