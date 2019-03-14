@@ -56,11 +56,11 @@ module.exports.mahabhuta = new mahabhuta.MahafuncArray(pluginName, {});
 ]); */
 
 class EmbedResponsiveIframe extends mahabhuta.Munger {
-	get selector() { return '.embed-responsive iframe'; }
+    get selector() { return '.embed-responsive iframe'; }
 
-	process($, $link, metadata, dirty, done) {
-		$link.addClass("embed-responsive-item");
-	}
+    process($, $link, metadata, dirty, done) {
+        $link.addClass("embed-responsive-item");
+    }
 }
 module.exports.mahabhuta.addMahafunc(new EmbedResponsiveIframe());
 
@@ -73,9 +73,9 @@ class CollapseContainer extends mahabhuta.CustomElement {
         const id = $element.attr('id');
         dirty();
         return akasha.partial(metadata.config, template, {
-			id: id,
-			content: $element.html()
-		});
+            id: id,
+            content: $element.html()
+        });
     }
 }
 module.exports.mahabhuta.addMahafunc(new CollapseContainer());
@@ -184,28 +184,66 @@ class ButtonModal extends mahabhuta.CustomElement {
 }
 module.exports.mahabhuta.addMahafunc(new ButtonModal());
 
+class CardBlock extends mahabhuta.CustomElement {
+    get elementName() { return "card-block"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "card.html.ejs";
+        const id = $element.attr('id');
+        const header = $element.attr('header');
+        const additionalClasses = $element.attr('additional-classes')
+                ? $element.attr('additional-classes') : "";
+        const bodyHeader = $element.attr('body-header')
+                ? $element.attr('body-header') : "";
+        const cardImageTop = $element.attr('card-image-top')
+                ? $element.attr('card-image-top') : "";
+        const cardImageAlt = $element.attr('card-image-alt')
+                ? $element.attr('card-image-alt') : "";
+        dirty();
+        const data = {
+            id, header, additionalClasses, bodyHeader, 
+            cardImageTop, cardImageAlt,
+            content: $element.html()
+        };
+        // console.log(`carousel-item sending data `, data);
+        return akasha.partial(metadata.config, template, data);
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CardBlock());
 
-/* -- These are optional addons which work with Bootstrap
- * -- However, the site configurer can configure these easily
- * -- or else this can export a function which can be called from config
- *         config.plugin('akashacms-theme-bootstrap').useHtml5Shiv() ... etc
-		if (config.themeBootstrap.useHtml5shiv) {
-			config.headerScripts.javaScriptTop.unshift({
-				href: config.themeBootstrap.html5shivUrl
-					? config.themeBootstrap.html5shivUrl
-					: "//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js",
-				/* media: "screen" * /
-			});
-		}
-		if (config.themeBootstrap.useRespondJS) {
-			config.headerScripts.javaScriptTop.unshift({
-				href: config.themeBootstrap.RespondJSUrl
-					? config.themeBootstrap.RespondJSUrl
-					: "//oss.maxcdn.com/respond/1.4.2/respond.min.js",
-				/* media: "screen" * /
-			});
-		}
+class CardQuote extends mahabhuta.CustomElement {
+    get elementName() { return "card-quote"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "card-quote.html.ejs";
+        const id = $element.attr('id');
+        const header = $element.attr('header');
+        const additionalClasses = $element.attr('additional-classes')
+                ? $element.attr('additional-classes') : "";
+        const bodyHeader = $element.attr('body-header')
+                ? $element.attr('body-header') : "";
+        const cardImageTop = $element.attr('card-image-top')
+                ? $element.attr('card-image-top') : "";
+        const cardImageAlt = $element.attr('card-image-alt')
+                ? $element.attr('card-image-alt') : "";
+        const quoteSource = $element.attr('quote-source')
+                ? $element.attr('quote-source') : "";
+        const quoteTitle = $element.attr('quote-title')
+                ? $element.attr('quote-title') : "";
+        dirty();
+        const data = {
+            id, header, additionalClasses, bodyHeader, 
+            cardImageTop, cardImageAlt,
+            quoteSource, quoteTitle,
+            content: $element.html()
+        };
+        // console.log(`carousel-item sending data `, data);
+        return akasha.partial(metadata.config, template, data);
+    }
+}
+module.exports.mahabhuta.addMahafunc(new CardQuote());
 
-*/
 
 // TBD: HTML filter to change image tags to be responsive http://getbootstrap.com/css/
