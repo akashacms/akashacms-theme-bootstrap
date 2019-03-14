@@ -278,7 +278,8 @@ Bootstrap’s cards provide a flexible and extensible content container with mul
 <card-block additional-classes="col" header="Vectrix electric maxi-scooter"
     body-header="Electric Scooter History" 
     card-image-top="img/2009_green_bike.jpg"
-    card-image-alt="Vectrix electric maxi-scooter">
+    card-image-alt="Vectrix electric maxi-scooter"
+    card-image-style="max-width: 400px;">
 The Vectrix electric maxi-scooter was a highway-capable electric scooter launched in 2007.
 </card-block>
 ```
@@ -286,7 +287,8 @@ The Vectrix electric maxi-scooter was a highway-capable electric scooter launche
 <card-block header="Vectrix electric maxi-scooter"
     body-header="Electric Scooter History" 
     card-image-top="img/2009_green_bike.jpg"
-    card-image-alt="Vectrix electric maxi-scooter">
+    card-image-alt="Vectrix electric maxi-scooter"
+    card-image-style="max-width: 400px;">
 The Vectrix electric maxi-scooter was a highway-capable electric scooter launched in 2007.
 </card-block>
 
@@ -294,6 +296,7 @@ The Vectrix electric maxi-scooter was a highway-capable electric scooter launche
 <card-quote header="Cute header text" body-header="Cute subtitle text"
     card-image-top="img/nikola-tesla.jpg"
     card-image-alt="Nikola Tesla"
+    card-image-style="max-width: 400px;"
     quote-source="Nikola Tesla"
     quote-title="The Universal Mind">
 Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance.
@@ -303,6 +306,7 @@ Every living being is an engine geared to the wheelwork of the universe. Though 
 <card-quote header="Cute header text" body-header="Cute subtitle text"
     card-image-top="img/nikola-tesla.jpg"
     card-image-alt="Nikola Tesla"
+    card-image-style="max-width: 400px;"
     quote-source="Nikola Tesla"
     quote-title="The Universal Mind">
 Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance.

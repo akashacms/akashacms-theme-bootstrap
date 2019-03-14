@@ -6,6 +6,9 @@
             if (typeof cardImageAlt !== 'undefined' && cardImageAlt !== '') {
                 %> alt="<%= cardImageAlt %>" <%
             }
+            if (typeof cardImageStyle !== 'undefined' && cardImageStyle !== '') {
+                %> style="<%= cardImageStyle %>" <%
+            }
         %>>
     <% } %>
     <% if (typeof header !== 'undefined' && header !== '') { %>
