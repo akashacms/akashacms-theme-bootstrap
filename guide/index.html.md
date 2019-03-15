@@ -311,3 +311,27 @@ Every living being is an engine geared to the wheelwork of the universe. Though 
     quote-title="The Universal Mind">
 Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance.
 </card-quote>
+
+# Dropdown menus
+
+Bootstrap offers convenient dropdown menus that are very flexible.  Here is an example using every option available
+
+```html
+<dropdown-menu label="Example dropdown-menu" id="example-dropdown-menu">
+<dropdown-menu-header label="Header text"/>
+<dropdown-menu-item href="#" label="Item 1"/>
+<dropdown-menu-item href="#" label="Item 2"/>
+<dropdown-menu-button href="#" label="Item 3"/>
+<dropdown-menu-divider/>
+<p>Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance. -- Nikola Tesla</p>
+</dropdown-menu>
+```
+
+<dropdown-menu label="Example dropdown-menu" id="example-dropdown-menu">
+<dropdown-menu-header label="Header text"/>
+<dropdown-menu-item href="#" label="Item 1"/>
+<dropdown-menu-item href="#" label="Item 2"/>
+<dropdown-menu-button href="#" label="Item 3"/>
+<dropdown-menu-divider/>
+<p>Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance. -- Nikola Tesla</p>
+</dropdown-menu>

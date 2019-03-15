@@ -64,6 +64,125 @@ class EmbedResponsiveIframe extends mahabhuta.Munger {
 }
 module.exports.mahabhuta.addMahafunc(new EmbedResponsiveIframe());
 
+class DropdownMenu extends mahabhuta.CustomElement {
+    get elementName() { return "dropdown-menu"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "bootstrap-dropdown.html.ejs";
+        const id = $element.attr('id');
+		if (!id || id === '') {
+			throw new Error(`dropdown-menu requires an id value`);
+		}
+        const label = $element.attr('label');
+		if (!label || label === '') {
+			throw new Error(`dropdown-menu requires an label value`);
+		}
+        const rightAligned = $element.attr('right-aligned');
+        const buttonType = $element.attr('button-type');
+        const buttonSize = $element.attr('button-size');
+        const additionalClasses = $element.attr('additional-classes');
+        dirty();
+        return akasha.partial(metadata.config, template, {
+            id, dropdownLabel: label,
+            buttonType: typeof buttonType !== 'undefined' && buttonType !== ''
+                ? buttonType : 'btn-secondary',
+            buttonSize: typeof buttonSize !== 'undefined' && buttonSize !== ''
+                ? buttonSize : '',
+            rightAligned: typeof rightAligned !== 'undefined' && rightAligned !== ''
+                    ? true : false,
+            additionalClasses: typeof additionalClasses !== 'undefined' && additionalClasses !== ''
+                    ? additionalClasses : '',
+            content: $element.html()
+        });
+    }
+}
+module.exports.mahabhuta.addMahafunc(new DropdownMenu());
+
+class DropdownMenuItem extends mahabhuta.CustomElement {
+    get elementName() { return "dropdown-menu-item"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "bootstrap-dropdown-item.html.ejs";
+        const href = $element.attr('href');
+		if (!href || href === '') {
+			throw new Error(`dropdown-menu-item requires an href value`);
+		}
+        const label = $element.attr('label');
+		if (!label || label === '') {
+			throw new Error(`dropdown-menu-item requires an label value`);
+		}
+        const isActive = $element.attr('active');
+        const isDisabled = $element.attr('disabled');
+        return akasha.partial(metadata.config, template, {
+            href, label,
+            isActive: typeof isActive !== 'undefined' && isActive !== ''
+                ? "active" : "",
+            isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
+                ? "active" : ""
+        });
+    }
+}
+module.exports.mahabhuta.addMahafunc(new DropdownMenuItem());
+
+class DropdownMenuButton extends mahabhuta.CustomElement {
+    get elementName() { return "dropdown-menu-button"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "bootstrap-dropdown-button.html.ejs";
+        const href = $element.attr('href');
+		if (!href || href === '') {
+			throw new Error(`dropdown-menu-button requires an href value`);
+		}
+        const label = $element.attr('label');
+		if (!label || label === '') {
+			throw new Error(`dropdown-menu-button requires an label value`);
+		}
+        const isActive = $element.attr('active');
+        const isDisabled = $element.attr('disabled');
+        return akasha.partial(metadata.config, template, {
+            href, dropdownLabel: label,
+            isActive: typeof isActive !== 'undefined' && isActive !== ''
+                ? "active" : "",
+            isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
+                ? "active" : ""
+        });
+    }
+}
+module.exports.mahabhuta.addMahafunc(new DropdownMenuButton());
+
+class DropdownMenuHeader extends mahabhuta.CustomElement {
+    get elementName() { return "dropdown-menu-header"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "bootstrap-dropdown-header.html.ejs";
+        const label = $element.attr('label');
+		if (!label || label === '') {
+			throw new Error(`dropdown-menu-button requires an label value`);
+		}
+        return akasha.partial(metadata.config, template, {
+            label
+        });
+    }
+}
+module.exports.mahabhuta.addMahafunc(new DropdownMenuHeader());
+
+class DropdownMenuDivider extends mahabhuta.CustomElement {
+    get elementName() { return "dropdown-menu-divider"; }
+    async process($element, metadata, dirty) {
+        const template = $element.attr('template') 
+                ? $element.attr('template')
+                : "bootstrap-dropdown-divider.html.ejs";
+        return akasha.partial(metadata.config, template, {
+            
+        });
+    }
+}
+module.exports.mahabhuta.addMahafunc(new DropdownMenuDivider());
+
 class CollapseContainer extends mahabhuta.CustomElement {
     get elementName() { return "collapse-container"; }
     async process($element, metadata, dirty) {
