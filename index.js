@@ -143,7 +143,7 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
         const isActive = $element.attr('active');
         const isDisabled = $element.attr('disabled');
         return akasha.partial(metadata.config, template, {
-            href, dropdownLabel: label,
+            href, label,
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
             isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
