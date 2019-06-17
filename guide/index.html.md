@@ -31,6 +31,8 @@ Normally the `akashacms-theme-bootstrap` plugin would be loaded as above.  BUT, 
 "akashacms-theme-bootstrap": "akashacms/akashacms-theme-bootstrap#bootstrapv4",
 ```
 
+We are preparing to merge Bootstrap v4 support to the mainstream of this module.  [See Pull Request](https://github.com/akashacms/akashacms-theme-bootstrap/pull/2)
+
 The `bootstrap`, `popper.js` and `jquery` modules don't provide any Node.js functionality, but are a quick way to access the Bootstrap and jQuery libraries.  All of them can be retrieved using the corresponding CDN URL's, if you prefer.
 
 Once added to `package.json` run: `npm install` to download the packages.
