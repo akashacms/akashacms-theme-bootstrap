@@ -58,11 +58,24 @@ module.exports.mahabhuta = new mahabhuta.MahafuncArray(pluginName, {});
 class EmbedResponsiveIframe extends mahabhuta.Munger {
     get selector() { return '.embed-responsive iframe'; }
 
-    process($, $link, metadata, dirty, done) {
+    process($, $link, metadata, dirty) {
         $link.addClass("embed-responsive-item");
     }
 }
 module.exports.mahabhuta.addMahafunc(new EmbedResponsiveIframe());
+
+// For some reason Bootstrap wants this:
+//      <blockquote class="blockquote"></blockquote>
+class FixBlockquote extends mahabhuta.Munger {
+    get selector() { return 'blockquote'; }
+
+    process($, $link, metadata, dirty) {
+        if (!$link.hasClass('blockquote')) {
+            $link.addClass("blockquote");
+        }
+    }
+}
+module.exports.mahabhuta.addMahafunc(new FixBlockquote());
 
 class DropdownMenu extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu"; }
