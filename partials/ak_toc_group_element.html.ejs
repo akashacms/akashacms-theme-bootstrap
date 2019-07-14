@@ -1,3 +1,8 @@
-<ol id="<%= id %>" class="list-group border-primary bg-light <%= optionalclasses %>">
+<div id="<%= id %>" class="clearfix border-primary bg-light">
+<% if (typeof suppressContents === 'undefined') { %>
+    <h5>Contents</h5>
+<% } %>
+<ol class="list-group <%= optionalclasses %>">
     <%- content %>
 </ol>
+</div>
