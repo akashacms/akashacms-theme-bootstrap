@@ -25,35 +25,42 @@ const mahabhuta = akasha.mahabhuta;
 
 const pluginName = "akashacms-theme-bootstrap";
 
+const _plugin_config = Symbol('config');
+const _plugin_options = Symbol('options');
+
 module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
 	constructor() {
 		super(pluginName);
 	}
 
-	configure(config) {
-        this._config = config;
+    configure(config, options) {
+        this[_plugin_config] = config;
+        this[_plugin_options] = options;
+        options.config = config;
 		config.addPartialsDir(path.join(__dirname, 'partials'));
-		config.addMahabhuta(module.exports.mahabhuta);
+        config.addMahabhuta(module.exports.mahabhutaArray(options));
 	}
 
 };
 
-module.exports.mahabhuta = new mahabhuta.MahafuncArray(pluginName, {});
-
-/* module.exports.mahabhuta.addMahafunc([
-    // TODO update to use Munger
-	function($, metadata, dirty, done) {
-		var elements = [];
-		$('.embed-responsive iframe').each((i, elem) => { elements.push(elem); });
-		async.eachSeries(elements, (element, next) => {
-			$(element).addClass("embed-responsive-item");
-			next();
-		}, function(err) {
-			if (err) done(err);
-			else done();
-		});
-	}
-]); */
+module.exports.mahabhutaArray = function(options) {
+    let ret = new mahabhuta.MahafuncArray(pluginName, options);
+    ret.addMahafunc(new EmbedResponsiveIframe());
+    ret.addMahafunc(new FixBlockquote());
+    ret.addMahafunc(new DropdownMenu());
+    ret.addMahafunc(new DropdownMenuItem());
+    ret.addMahafunc(new DropdownMenuButton());
+    ret.addMahafunc(new DropdownMenuHeader());
+    ret.addMahafunc(new DropdownMenuDivider());
+    ret.addMahafunc(new CollapseContainer());
+    ret.addMahafunc(new CollapseItem());
+    ret.addMahafunc(new CarouselContainer());
+    ret.addMahafunc(new CarouselItem());
+    ret.addMahafunc(new ButtonModal());
+    ret.addMahafunc(new CardBlock());
+    ret.addMahafunc(new CardQuote());
+    return ret;
+};
 
 class EmbedResponsiveIframe extends mahabhuta.Munger {
     get selector() { return '.embed-responsive iframe'; }
@@ -62,7 +69,6 @@ class EmbedResponsiveIframe extends mahabhuta.Munger {
         $link.addClass("embed-responsive-item");
     }
 }
-module.exports.mahabhuta.addMahafunc(new EmbedResponsiveIframe());
 
 // For some reason Bootstrap wants this:
 //      <blockquote class="blockquote"></blockquote>
@@ -75,7 +81,6 @@ class FixBlockquote extends mahabhuta.Munger {
         }
     }
 }
-module.exports.mahabhuta.addMahafunc(new FixBlockquote());
 
 class DropdownMenu extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu"; }
@@ -96,7 +101,7 @@ class DropdownMenu extends mahabhuta.CustomElement {
         const buttonSize = $element.attr('button-size');
         const additionalClasses = $element.attr('additional-classes');
         dirty();
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             id, dropdownLabel: label,
             buttonType: typeof buttonType !== 'undefined' && buttonType !== ''
                 ? buttonType : 'btn-secondary',
@@ -110,7 +115,6 @@ class DropdownMenu extends mahabhuta.CustomElement {
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new DropdownMenu());
 
 class DropdownMenuItem extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu-item"; }
@@ -128,7 +132,7 @@ class DropdownMenuItem extends mahabhuta.CustomElement {
 		}
         const isActive = $element.attr('active');
         const isDisabled = $element.attr('disabled');
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             href, label,
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
@@ -137,7 +141,6 @@ class DropdownMenuItem extends mahabhuta.CustomElement {
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new DropdownMenuItem());
 
 class DropdownMenuButton extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu-button"; }
@@ -155,7 +158,7 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
 		}
         const isActive = $element.attr('active');
         const isDisabled = $element.attr('disabled');
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             href, label,
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
@@ -164,7 +167,6 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new DropdownMenuButton());
 
 class DropdownMenuHeader extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu-header"; }
@@ -176,12 +178,11 @@ class DropdownMenuHeader extends mahabhuta.CustomElement {
 		if (!label || label === '') {
 			throw new Error(`dropdown-menu-button requires an label value`);
 		}
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             label
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new DropdownMenuHeader());
 
 class DropdownMenuDivider extends mahabhuta.CustomElement {
     get elementName() { return "dropdown-menu-divider"; }
@@ -189,12 +190,11 @@ class DropdownMenuDivider extends mahabhuta.CustomElement {
         const template = $element.attr('template') 
                 ? $element.attr('template')
                 : "bootstrap-dropdown-divider.html.ejs";
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new DropdownMenuDivider());
 
 class CollapseContainer extends mahabhuta.CustomElement {
     get elementName() { return "collapse-container"; }
@@ -204,13 +204,12 @@ class CollapseContainer extends mahabhuta.CustomElement {
                 : "collapse-container.html.ejs";
         const id = $element.attr('id');
         dirty();
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
             id: id,
             content: $element.html()
         });
     }
 }
-module.exports.mahabhuta.addMahafunc(new CollapseContainer());
 
 class CollapseItem extends mahabhuta.CustomElement {
     get elementName() { return "collapse-item"; }
@@ -229,10 +228,9 @@ class CollapseItem extends mahabhuta.CustomElement {
 			content: $element.html()
 		};
 		// console.log(`collapse-item data `, data);
-        return akasha.partial(metadata.config, template, data);
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
-module.exports.mahabhuta.addMahafunc(new CollapseItem());
 
 class CarouselContainer extends mahabhuta.CustomElement {
     get elementName() { return "carousel-container"; }
@@ -247,14 +245,13 @@ class CarouselContainer extends mahabhuta.CustomElement {
 				? $element.attr('width') : "100%";
 		const style = $element.attr('style')
 				? `style="${$element.attr('style')}"` : "";
-        return akasha.partial(metadata.config, template, {
+        return akasha.partial(this.array.options.config, template, {
 			id: id,
 			width, style, optionalclasses,
 			content: $element.html()
 		});
     }
 }
-module.exports.mahabhuta.addMahafunc(new CarouselContainer());
 
 class CarouselItem extends mahabhuta.CustomElement {
     get elementName() { return "carousel-item"; }
@@ -281,10 +278,9 @@ class CarouselItem extends mahabhuta.CustomElement {
 			width, style
 		};
 		// console.log(`carousel-item sending data `, data);
-        return akasha.partial(metadata.config, template, data);
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
-module.exports.mahabhuta.addMahafunc(new CarouselItem());
 
 class ButtonModal extends mahabhuta.CustomElement {
     get elementName() { return "button-launched-modal"; }
@@ -311,10 +307,9 @@ class ButtonModal extends mahabhuta.CustomElement {
 			content: $element.html()
 		};
 		// console.log(`carousel-item sending data `, data);
-        return akasha.partial(metadata.config, template, data);
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
-module.exports.mahabhuta.addMahafunc(new ButtonModal());
 
 class CardBlock extends mahabhuta.CustomElement {
     get elementName() { return "card-block"; }
@@ -342,10 +337,9 @@ class CardBlock extends mahabhuta.CustomElement {
             content: $element.html()
         };
         // console.log(`carousel-item sending data `, data);
-        return akasha.partial(metadata.config, template, data);
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
-module.exports.mahabhuta.addMahafunc(new CardBlock());
 
 class CardQuote extends mahabhuta.CustomElement {
     get elementName() { return "card-quote"; }
@@ -378,10 +372,9 @@ class CardQuote extends mahabhuta.CustomElement {
             content: $element.html()
         };
         // console.log(`carousel-item sending data `, data);
-        return akasha.partial(metadata.config, template, data);
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
-module.exports.mahabhuta.addMahafunc(new CardQuote());
 
 
 // TBD: HTML filter to change image tags to be responsive http://getbootstrap.com/css/
