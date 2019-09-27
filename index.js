@@ -271,14 +271,14 @@ class CarouselItem extends mahabhuta.CustomElement {
 		const captionbody = $element.attr('captionbody');
 		const width = $element.attr('width')
                 ? $element.attr('width') : "100%";
-        const _resizewidth = $link.attr('resize-width');
+        const _resizewidth = $element.attr('resize-width');
         let resizewidth;
         if (_resizewidth) {
             resizewidth = ` resize-width="${_resizewidth}"`;
         } else {
             resizewidth = '';
         }
-        const _resizeto = $link.attr('resize-to');
+        const _resizeto = $element.attr('resize-to');
         let resizeto;
         if (_resizeto) {
             resizeto = ` resize-to="${_resizeto}"`;
