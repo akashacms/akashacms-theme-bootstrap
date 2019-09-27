@@ -270,12 +270,26 @@ class CarouselItem extends mahabhuta.CustomElement {
 		const captiontitle = $element.attr('captiontitle');
 		const captionbody = $element.attr('captionbody');
 		const width = $element.attr('width')
-				? $element.attr('width') : "100%";
+                ? $element.attr('width') : "100%";
+        const _resizewidth = $link.attr('resize-width');
+        let resizewidth;
+        if (_resizewidth) {
+            resizewidth = ` resize-width="${_resizewidth}"`;
+        } else {
+            resizewidth = '';
+        }
+        const _resizeto = $link.attr('resize-to');
+        let resizeto;
+        if (_resizeto) {
+            resizeto = ` resize-to="${_resizeto}"`;
+        } else {
+            resizeto = '';
+        }
 		const style = $element.attr('style')
 				? `style="${$element.attr('style')}"` : "";
 		const data = {
 			href, alt, isactive, captiontitle, captionbody,
-			width, style
+			width, style, resizewidth, resizeto
 		};
 		// console.log(`carousel-item sending data `, data);
         return akasha.partial(this.array.options.config, template, data);
