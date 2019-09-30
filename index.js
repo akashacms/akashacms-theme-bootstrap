@@ -132,13 +132,14 @@ class DropdownMenuItem extends mahabhuta.CustomElement {
 		}
         const isActive = $element.attr('active');
         const isDisabled = $element.attr('disabled');
-        return akasha.partial(this.array.options.config, template, {
+        let data = {
             href, label,
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
             isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
-                ? "active" : ""
-        });
+                ? "disabled" : ""
+        };
+        return akasha.partial(this.array.options.config, template, data);
     }
 }
 
@@ -163,7 +164,7 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
             isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
-                ? "active" : ""
+                ? "disabled" : ""
         });
     }
 }
