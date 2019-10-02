@@ -16,7 +16,7 @@ Therefore the following should be added to the `package.json` of your AkashaCMS 
 ```json
 "dependencies": {
     ...
-    "akashacms-theme-bootstrap": ">=0.6",
+    "@akashacms/theme-bootstrap": "^0.7.x",
     ...
     "jquery": "^3.3.x",
     "bootstrap": "^4.3.x",
@@ -25,11 +25,7 @@ Therefore the following should be added to the `package.json` of your AkashaCMS 
 }
 ```
 
-Normally the `akashacms-theme-bootstrap` plugin would be loaded as above.  BUT, At the moment Bootstrap v4 support is experimental and instead requires this dependency:
-
-```json
-"akashacms-theme-bootstrap": "akashacms/akashacms-theme-bootstrap#bootstrapv4",
-```
+**NOTE** This release supplants an earlier package, `akashacms-theme-bootstrap`.  That package supports Bootstrap 3, and has been marked as deprecated in the npm registry.
 
 We are preparing to merge Bootstrap v4 support to the mainstream of this module.  [See Pull Request](https://github.com/akashacms/akashacms-theme-bootstrap/pull/2)
 
@@ -38,6 +34,8 @@ The `bootstrap`, `popper.js` and `jquery` modules don't provide any Node.js func
 Once added to `package.json` run: `npm install` to download the packages.
 
 # Configuration
+
+To use the Bootstrap framework we must use Bootstrap JavaScript and CSS files in the generated HTML.  There are several ways of doing so, what follows is the recommended method.  It starts by adding Bootstrap, jQuery and Popper.js dependencies to the `package.json` as shown earlier.
 
 Add the following to `config.js`
 
@@ -62,7 +60,7 @@ This first section mounts the jQuery and Bootstrap distribution into your websit
 ```js
 config
     ...
-    .use(require('akashacms-theme-bootstrap'))
+    .use(require('@akashacms/theme-bootstrap'))
     ...
 ```
 
@@ -160,18 +158,23 @@ A complete example would be:
 ```html
 <carousel-container id="carousel1">
     <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        resize-width="700"
         captionbody="Aptera">
     </carousel-item>
     <carousel-item href="img/2009_green_bike.jpg" 
+        resize-width="700"
         captionbody="Vectrix electric maxi-scooter">
     </carousel-item>
     <carousel-item href="img/loladrayson-3-web.jpg" 
+        resize-width="700"
         captionbody="Drayson Racing electric race car based on Lola chassis">
     </carousel-item>
     <carousel-item href="img/karma18-web.jpg" 
+        resize-width="700"
         captionbody="Fisker Karma">
     </carousel-item>
     <carousel-item href="img/PP125.jpg" 
+        resize-width="700"
        captionbody="UQM drive train for electric vehicles">
     </carousel-item>
 </carousel-container>
@@ -181,18 +184,24 @@ And it looks like this:
 
 <carousel-container id="carousel1">
     <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        resize-width="700"
         captionbody="Aptera">
     </carousel-item>
     <carousel-item href="img/2009_green_bike.jpg" 
+        resize-width="700"
         captionbody="Vectrix electric maxi-scooter">
     </carousel-item>
     <carousel-item href="img/loladrayson-3-web.jpg" 
+        resize-width="700"
+        resize-width="700"
         captionbody="Drayson Racing electric race car based on Lola chassis">
     </carousel-item>
     <carousel-item href="img/karma18-web.jpg" 
+        resize-width="700"
         captionbody="Fisker Karma">
     </carousel-item>
     <carousel-item href="img/PP125.jpg" 
+        resize-width="700"
        captionbody="UQM drive train for electric vehicles">
     </carousel-item>
 </carousel-container>
@@ -230,18 +239,23 @@ We often want to show some information or ask for data using a modal window.  Th
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
 <carousel-container id="carousel2">
     <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        resize-width="700"
         captionbody="Aptera">
     </carousel-item>
     <carousel-item href="img/2009_green_bike.jpg" 
+        resize-width="700"
         captionbody="Vectrix electric maxi-scooter">
     </carousel-item>
     <carousel-item href="img/loladrayson-3-web.jpg" 
+        resize-width="700"
         captionbody="Drayson Racing electric race car based on Lola chassis">
     </carousel-item>
     <carousel-item href="img/karma18-web.jpg" 
+        resize-width="700"
         captionbody="Fisker Karma">
     </carousel-item>
     <carousel-item href="img/PP125.jpg" 
+        resize-width="700"
        captionbody="UQM drive train for electric vehicles">
     </carousel-item>
 </carousel-container>
@@ -255,18 +269,23 @@ We often want to show some information or ask for data using a modal window.  Th
                        additional-classes="modal-dialog-scrollable modal-dialog-centered">
 <carousel-container id="carousel2">
     <carousel-item href="img/APTERA-8360-web.jpg" isactive="true"
+        resize-width="700"
         captionbody="Aptera">
     </carousel-item>
     <carousel-item href="img/2009_green_bike.jpg" 
+        resize-width="700"
         captionbody="Vectrix electric maxi-scooter">
     </carousel-item>
     <carousel-item href="img/loladrayson-3-web.jpg" 
+        resize-width="700"
         captionbody="Drayson Racing electric race car based on Lola chassis">
     </carousel-item>
     <carousel-item href="img/karma18-web.jpg" 
+        resize-width="700"
         captionbody="Fisker Karma">
     </carousel-item>
     <carousel-item href="img/PP125.jpg" 
+        resize-width="700"
        captionbody="UQM drive train for electric vehicles">
     </carousel-item>
 </carousel-container>

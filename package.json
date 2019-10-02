@@ -4,9 +4,9 @@
     "email": "david@davidherron.com",
     "url": "http://davidherron.com"
   },
-  "name": "akashacms-theme-bootstrap",
+  "name": "@akashacms/theme-bootstrap",
   "description": "A theme for AkashaCMS that supports the Twitter Bootstrap framework",
-  "homepage": "http://akashacms.com/plugins/theme-bootstrap.html",
+  "homepage": "https://akashacms.com/plugins/theme-bootstrap/index.html",
   "repository": {
     "type": "git",
     "url": "git://github.com/akashacms/akashacms-theme-bootstrap.git"
@@ -16,6 +16,5 @@
     "node": ">=12.x"
   },
   "dependencies": {
-    "bootstrap": "^4.3.x"
   }
 }
