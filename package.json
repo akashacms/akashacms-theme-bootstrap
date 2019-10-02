@@ -4,19 +4,20 @@
     "email": "david@davidherron.com",
     "url": "http://davidherron.com"
   },
-  "name": "akashacms-theme-bootstrap",
+  "name": "@akashacms/theme-bootstrap",
   "description": "A theme for AkashaCMS that supports the Twitter Bootstrap framework",
-  "homepage": "http://akashacms.com/plugins/theme-bootstrap.html",
+  "homepage": "https://akashacms.com/plugins/theme-bootstrap/index.html",
   "repository": {
     "type": "git",
     "url": "git://github.com/akashacms/akashacms-theme-bootstrap.git"
   },
-  "version": "0.6.4",
+  "version": "0.7.6",
   "engines": {
-    "node": ">=0.10.1"
+    "node": ">=12.x"
+  },
+  "scripts": {
+      "dopublish": "npm publish --access public"
   },
   "dependencies": {
-    "async": "*",
-    "debug": "^2.2.0"
   }
 }

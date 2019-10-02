@@ -1,22 +1,13 @@
 <div class="dropdown">
-  <button class="btn dropdown-toggle sr-only" type="button" id="<%= dropdownId %>" data-toggle="dropdown">
-    Dropdown
+  <button class="btn <%= buttonType %> <%= buttonSize %> <%= additionalClasses %> dropdown-toggle" 
+            type="button" id="<%= id %>" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+    <%= dropdownLabel %>
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu<%
-  		if (rightAligned) { %> dropdown-menu-right <% }
-  	%>" role="menu" aria-labelledby="<%= dropdownId %>">
-  	<% for (var i = 0; i < items.length; i++) {
-  		var item = items[i];
-  		if (item.divider) {
-  			%><li role="presentation" class="divider"></li><%
-  		} else if (item.isHeader) {
-  			%><li role="presentation" class="dropdown-header"><%= item.title %></li><%
-  		} else {
-	  		%><li role="presentation"<%
-	  			if (item.isDisabled) { %> class="disabled" <% }
-	  		%> ><a role="menuitem" tabindex="-1" href="<%= item.href %>"><%= item.title %></a></li><%
-	  	}
-  	} %>
-  </ul>
+  <div class="dropdown-menu<%
+        if (rightAligned) { %> dropdown-menu-right <% }
+    %>" role="menu" aria-labelledby="<%= id %>">
+      <%- content %>
+  </div>
 </div>
