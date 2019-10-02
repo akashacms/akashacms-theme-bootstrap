@@ -10,6 +10,7 @@ config.addLayoutsDir('layouts')
       .addPartialsDir('partials')
       .addDocumentsDir('documents');
 config.use(plugin);
+config.use(require('akashacms-base'));
 config.setMahabhutaConfig({
     recognizeSelfClosing: true,
     recognizeCDATA: true,
@@ -422,4 +423,75 @@ describe('/cards.html', function() {
         assert.isTrue($('#card2 .card-body blockquote footer').hasClass('blockquote-footer'));
         assert.include($('#card2 .card-body blockquote footer').html(), 'Nikola Tesla in');
     });
+});
+
+describe('/tocgroup.html', function() {
+    let html;
+    let $;
+
+    it('should have rendered', async function() {
+        let results = await akasha.readRenderedFile(config, 'tocgroup.html');
+        html = results.html;
+        $ = results.$;
+
+        assert.exists(html, 'result exists');
+        assert.isString(html, 'result isString');
+    });
+
+    it('should have main-toc-group', function() {
+        assert.equal($('#main-toc-group').length, 1);
+        assert.isTrue($('#main-toc-group').hasClass('clearfix'));
+        assert.isTrue($('#main-toc-group').hasClass('border-primary'));
+        assert.isTrue($('#main-toc-group').hasClass('bg-light'));
+        assert.equal($('#main-toc-group ol.list-group').length, 2);
+    });
+
+    it('should have item #install', function() {
+        assert.equal($('#main-toc-group #toc-item-install').length, 1);
+        assert.isTrue($('#main-toc-group #toc-item-install').hasClass('list-group-item'));
+        assert.equal($('#main-toc-group #toc-item-install a[href="#install"]').length, 1);
+        assert.equal($('#main-toc-group #toc-item-install a[href="#install"]').html(), 'Installation');
+
+        assert.equal($('h1#install').length, 1);
+        assert.equal($('h1#install').html(), 'Installation');
+    });
+
+    it('should have item #config', function() {
+        assert.equal($('#main-toc-group #toc-item-config').length, 1);
+        assert.isTrue($('#main-toc-group #toc-item-config').hasClass('list-group-item'));
+        assert.equal($('#main-toc-group #toc-item-config a[href="#config"]').length, 1);
+        assert.equal($('#main-toc-group #toc-item-config a[href="#config"]').html(), 'Configuration');
+
+        assert.equal($('h1#config').length, 1);
+        assert.equal($('h1#config').html(), 'Configuration');
+    });
+
+    it('should have item #custom-tags', function() {
+        assert.equal($('#main-toc-group #toc-item-custom-tags').length, 1);
+        assert.isTrue($('#main-toc-group #toc-item-custom-tags').hasClass('list-group-item'));
+        assert.equal($('#main-toc-group #toc-item-custom-tags a[href="#custom-tags"]').length, 1);
+        assert.equal($('#main-toc-group #toc-item-custom-tags a[href="#custom-tags"]').html(), 'Custom tags');
+
+        assert.equal($('h1#custom-tags').length, 1);
+        assert.equal($('h1#custom-tags').html(), 'Custom tags');
+    });
+
+    it('should have item #inner-toc-group', function() {
+        assert.equal($('#main-toc-group #inner-toc-group').length, 1);
+        assert.isTrue($('#main-toc-group #inner-toc-group').hasClass('clearfix'));
+        assert.isTrue($('#main-toc-group #inner-toc-group').hasClass('border-primary'));
+        assert.isTrue($('#main-toc-group #inner-toc-group').hasClass('bg-light'));
+        assert.equal($('#main-toc-group #inner-toc-group ol.list-group').length, 1);
+    });
+
+    it('should have item #metadata', function() {
+        assert.equal($('#main-toc-group #inner-toc-group #toc-item-metadata').length, 1);
+        assert.isTrue($('#main-toc-group #inner-toc-group #toc-item-metadata').hasClass('list-group-item'));
+        assert.equal($('#main-toc-group #inner-toc-group #toc-item-metadata a[href="#metadata"]').length, 1);
+        assert.equal($('#main-toc-group #inner-toc-group #toc-item-metadata a[href="#metadata"]').html(), 'Metadata in page header');
+
+        assert.equal($('h2#metadata').length, 1);
+        assert.equal($('h2#metadata').html(), 'Metadata in page header');
+    });
+
 });
