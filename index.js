@@ -23,7 +23,7 @@ const path  = require('path');
 const akasha = require('akasharender');
 const mahabhuta = akasha.mahabhuta;
 
-const pluginName = "akashacms-theme-bootstrap";
+const pluginName = "@akashacms/theme-bootstrap";
 
 const _plugin_config = Symbol('config');
 const _plugin_options = Symbol('options');
