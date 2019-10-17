@@ -341,6 +341,10 @@ class CardBlock extends mahabhuta.CustomElement {
                 ? $element.attr('body-header') : "";
         const cardImageTop = $element.attr('card-image-top')
                 ? $element.attr('card-image-top') : "";
+        const cardImageResizeTo = $element.attr('card-image-resize-to')
+                ? $element.attr('card-image-resize-to') : "";
+        const cardImageResizeWidth = $element.attr('card-image-resize-width')
+                ? $element.attr('card-image-resize-width') : "";
         const cardImageAlt = $element.attr('card-image-alt')
                 ? $element.attr('card-image-alt') : "";
         const cardImageStyle = $element.attr('card-image-style')
@@ -349,6 +353,7 @@ class CardBlock extends mahabhuta.CustomElement {
         const data = {
             id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
+            cardImageResizeTo, cardImageResizeWidth,
             content: $element.html()
         };
         // console.log(`carousel-item sending data `, data);
@@ -375,6 +380,10 @@ class CardQuote extends mahabhuta.CustomElement {
                 ? $element.attr('card-image-alt') : "";
         const cardImageStyle = $element.attr('card-image-style')
                 ? $element.attr('card-image-style') : "";
+        const cardImageResizeTo = $element.attr('card-image-resize-to')
+                ? $element.attr('card-image-resize-to') : "";
+        const cardImageResizeWidth = $element.attr('card-image-resize-width')
+                ? $element.attr('card-image-resize-width') : "";
         const quoteSource = $element.attr('quote-source')
                 ? $element.attr('quote-source') : "";
         const quoteTitle = $element.attr('quote-title')
@@ -383,6 +392,7 @@ class CardQuote extends mahabhuta.CustomElement {
         const data = {
             id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
+            cardImageResizeTo, cardImageResizeWidth,
             quoteSource, quoteTitle,
             content: $element.html()
         };

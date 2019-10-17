@@ -406,6 +406,23 @@ describe('/cards.html', function() {
         assert.include($('#card1 .card-body').html(), 'The Vectrix electric maxi-scooter was a highway-capable electric scooter launched in 2007');
     });
 
+    it('should have correct card1-resized', function() {
+        assert.equal($('#card1-resized').length, 1);
+        assert.isTrue($('#card1-resized').hasClass('card'));
+
+        assert.equal($('#card1-resized img[src="img/2009_green_bike-resized.jpg"]').length, 1);
+        assert.isTrue($('#card1-resized img[src="img/2009_green_bike-resized.jpg"]').hasClass('card-img-top'));
+        assert.equal($('#card1-resized img[src="img/2009_green_bike-resized.jpg"]').attr('alt'), "Vectrix electric maxi-scooter");
+
+        assert.equal($('#card1-resized .card-header').length, 2);
+        assert.include($('#card1-resized .card-header').html(), 'Vectrix electric maxi-scooter');
+        assert.equal($('#card1-resized .card-body').length, 1);
+        assert.equal($('#card1-resized .card-body .card-header').length, 1);
+        assert.equal($('#card1-resized .card-body .card-header .card-title').length, 1);
+        assert.include($('#card1-resized .card-body .card-header .card-title').html(), 'Electric Scooter History');
+        assert.include($('#card1-resized .card-body').html(), 'The Vectrix electric maxi-scooter was a highway-capable electric scooter launched in 2007');
+    });
+
     it('should have correct card2', function() {
         assert.equal($('#card2').length, 1);
         assert.isTrue($('#card2').hasClass('card'));
@@ -422,6 +439,24 @@ describe('/cards.html', function() {
         assert.equal($('#card2 .card-body blockquote footer').length, 1);
         assert.isTrue($('#card2 .card-body blockquote footer').hasClass('blockquote-footer'));
         assert.include($('#card2 .card-body blockquote footer').html(), 'Nikola Tesla in');
+    });
+
+    it('should have correct card2-resized', function() {
+        assert.equal($('#card2-resized').length, 1);
+        assert.isTrue($('#card2-resized').hasClass('card'));
+        assert.equal($('#card2-resized img[src="img/nikola-tesla-resized.jpg"]').length, 1);
+        assert.isTrue($('#card2-resized img[src="img/nikola-tesla-resized.jpg"]').hasClass('card-img-top'));
+        assert.equal($('#card2-resized img[src="img/nikola-tesla-resized.jpg"]').attr('alt'), 'Nikola Tesla');
+        assert.equal($('#card2-resized .card-header').length, 2);
+        assert.include($('#card2-resized .card-header').html(), 'Cute header text');
+        assert.equal($('#card2-resized .card-body').length, 1);
+        assert.equal($('#card2-resized .card-body .card-header').length, 1);
+        assert.include($('#card2-resized .card-body .card-header').html(), 'Cute subtitle text');
+        assert.include($('#card2-resized .card-body blockquote').html(), 'Every living being is an engine geared to the wheelwork of the universe');
+        assert.equal($('#card2-resized .card-body .card-header').length, 1);
+        assert.equal($('#card2-resized .card-body blockquote footer').length, 1);
+        assert.isTrue($('#card2-resized .card-body blockquote footer').hasClass('blockquote-footer'));
+        assert.include($('#card2-resized .card-body blockquote footer').html(), 'Nikola Tesla in');
     });
 });
 

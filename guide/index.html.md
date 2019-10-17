@@ -55,7 +55,7 @@ config
      })
 ```
 
-This first section mounts the jQuery and Bootstrap distribution into your website.  The files you would have accessed via the corresponding CDN's are available in `/vendor/jquery` and `/vendor/bootstrap` within the rendered site.
+This first section mounts the jQuery and Bootstrap distribution into your website.  The files you would have accessed via the corresponding CDN's are available in `/vendor/jquery`, `/vendor/popper.js`, and `/vendor/bootstrap` within the rendered site.
 
 ```js
 config
@@ -64,7 +64,7 @@ config
     ...
 ```
 
-This adds the AkashaCMS plugin to your configuration.
+This adds the AkashaCMS plugin to your configuration.  The effects of adding this plugin are documented below.
 
 ```js
 config
@@ -332,6 +332,32 @@ Every living being is an engine geared to the wheelwork of the universe. Though 
     quote-title="The Universal Mind">
 Every living being is an engine geared to the wheelwork of the universe. Though seemingly affected only by its immediate surrounding, the sphere of external influence extends to infinite distance.
 </card-quote>
+
+Both types of cards optionally take these attributes
+
+* `card-image-resize-to="pathname"` Causes the image to be resized, and stored in the given pathname.  The `<img src="..">` attribute is rewritten to use this pathname.
+* `card-image-resize-width="pixels"` When resizing the image, it is resized to the given number of pixels width.
+
+### Bootstrap card groups, card decks, card columns
+
+Any of these card types can be used within one of these containers:
+
+```html
+<div class="card-group">
+    <card-block ...>...</card-block>
+    <card-quote ...>...</card-quote>
+</div>
+
+<div class="card-deck">
+    <card-block ...>...</card-block>
+    <card-quote ...>...</card-quote>
+</div>
+
+<div class="card-columns">
+    <card-block ...>...</card-block>
+    <card-quote ...>...</card-quote>
+</div>
+```
 
 # Dropdown menus
 

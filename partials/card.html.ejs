@@ -12,6 +12,12 @@
             if (typeof cardImageStyle !== 'undefined' && cardImageStyle !== '') {
                 %> style="<%= cardImageStyle %>" <%
             }
+            if (typeof cardImageResizeTo !== 'undefined' && cardImageResizeTo !== '') {
+                %> resize-to="<%= cardImageResizeTo %>" <%
+            }
+            if (typeof cardImageResizeWidth !== 'undefined' && cardImageResizeWidth !== '') {
+                %> resize-width="<%= cardImageResizeWidth %>" <%
+            }
         %>>
     <% } %>
     <% if (typeof header !== 'undefined' && header !== '') { %>
