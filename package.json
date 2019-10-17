@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/akashacms/akashacms-theme-bootstrap.git"
   },
-  "version": "0.7.8",
+  "version": "0.7.9",
   "engines": {
     "node": ">=12.x"
   },
