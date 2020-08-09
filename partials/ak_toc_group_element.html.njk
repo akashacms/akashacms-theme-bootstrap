@@ -1,0 +1,4 @@
+<div {% if id %}id="{{ id | escape }}"{% endif %} class="clearfix border-primary bg-light">
+{% if not suppressContents %}<h5>Contents</h5>{% endif %}
+<ol class="list-group {{ additionalClasses }}">{{ content }}</ol>
+</div>
