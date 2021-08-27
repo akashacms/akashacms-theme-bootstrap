@@ -7,3 +7,22 @@
 {%- endif -%}
 {%- include _template -%}
 {%- endmacro %}
+
+{% macro carousel_container(id, optionalclasses, width, style, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "carousel-container.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{% macro carousel_item(id, isactive, href, alt, width, resizeto, resizewidth, style, captiontitle, captionbody, template) %}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "carousel-item.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}

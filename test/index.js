@@ -312,51 +312,67 @@ describe('/collapse.html', function() {
     });
 });
 
-describe('/carousel.html', function() {
-    let html;
-    let $;
+describe('/carousel(-njk).html', function() {
+    describe('/carousel.html', function() {
+        it('should have rendered EJS', async function() {
+            let results = await akasha.readRenderedFile(config, 'carousel.html');
+            let html = results.html;
+            let $ = results.$;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'carousel.html');
-        html = results.html;
-        $ = results.$;
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            check_carousel(html, $)
+        });
     });
 
-    it('should have carousel1', function() {
-        assert.equal($('div#carousel1').length, 1);
+    describe('/carousel-njk.html', function() {
+        it('should have rendered Nunjucks', async function() {
+            let results = await akasha.readRenderedFile(config, 'carousel-njk.html');
+            let html = results.html;
+            let $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+
+            check_carousel(html, $)
+        });
     });
 
-    it('should have correct number carousel-items', function() {
-        assert.equal($('div#carousel1 .carousel-item').length, 5);
-    });
+    function check_carousel(html, $) {
+        it('should have carousel1', function() {
+            assert.equal($('div#carousel1').length, 1);
+        });
 
-    it('should have correct carousel-item 1', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(1) img').attr('src'), 'img/APTERA-8360-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(1) .carousel-caption').html(), 'Aptera');
-    });
+        it('should have correct number carousel-items', function() {
+            assert.equal($('div#carousel1 .carousel-item').length, 5);
+        });
 
-    it('should have correct carousel-item 2', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(2) img').attr('src'), 'img/2009_green_bike.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(2) .carousel-caption').html(), 'Vectrix electric maxi-scooter');
-    });
+        it('should have correct carousel-item 1', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(1) img').attr('src'), 'img/APTERA-8360-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(1) .carousel-caption').html(), 'Aptera');
+        });
 
-    it('should have correct carousel-item 3', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(3) img').attr('src'), 'img/loladrayson-3-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(3) .carousel-caption').html(), 'Drayson Racing electric race car based on Lola chassis');
-    });
+        it('should have correct carousel-item 2', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(2) img').attr('src'), 'img/2009_green_bike.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(2) .carousel-caption').html(), 'Vectrix electric maxi-scooter');
+        });
 
-    it('should have correct carousel-item 4', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(4) img').attr('src'), 'img/karma18-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(4) .carousel-caption').html(), 'Fisker Karma');
-    });
+        it('should have correct carousel-item 3', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(3) img').attr('src'), 'img/loladrayson-3-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(3) .carousel-caption').html(), 'Drayson Racing electric race car based on Lola chassis');
+        });
 
-    it('should have correct carousel-item 5', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(5) img').attr('src'), 'img/PP125.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(5) .carousel-caption').html(), 'UQM drive train for electric vehicles');
-    });
+        it('should have correct carousel-item 4', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(4) img').attr('src'), 'img/karma18-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(4) .carousel-caption').html(), 'Fisker Karma');
+        });
+
+        it('should have correct carousel-item 5', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(5) img').attr('src'), 'img/PP125.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(5) .carousel-caption').html(), 'UQM drive train for electric vehicles');
+        });
+    }
 });
 
 

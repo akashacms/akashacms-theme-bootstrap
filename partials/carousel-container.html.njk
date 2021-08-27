@@ -1,0 +1,19 @@
+<div id="{{ id | safe }}"
+        class="carousel slide {{ optionalclasses | safe }}"
+        data-ride="carousel" data-wrap="true" data-touch="true"
+        {% if width %}width="{{ width | safe }}"{% endif %}
+        {% if style %}{{ style | safe }}{% endif %} >
+  <div class="carousel-inner">
+        {{ content }}
+  </div>
+  <a class="carousel-control-prev" href="#{{ id | safe }}"
+                    role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#{{ id | safe }}"
+                    role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

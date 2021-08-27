@@ -1,6 +1,6 @@
 <div class="card {{ additionalClasses | safe }}"
-        {%if id %}id="{{ id | safe }}"{% endif %}
-        {%if style %}style="{{ style | safe }}"{% endif %} >
+        {% if id %}id="{{ id | safe }}"{% endif %}
+        {% if style %}style="{{ style | safe }}"{% endif %} >
     {% if cardImageTop and cardImageTop !== '' -%}
         <img src="{{ cardImageTop | safe }}" class="card-img-top"
                 {%if cardImageAlt %}alt="{{ cardImageAlt | safe }}"{% endif %}
