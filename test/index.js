@@ -492,6 +492,93 @@ describe('/cards.html', function() {
     });
 });
 
+describe('/cards-njk.html', function() {
+    let html;
+    let $;
+
+    it('should have rendered', async function() {
+        let results = await akasha.readRenderedFile(config, 'cards-njk.html');
+        html = results.html;
+        $ = results.$;
+
+        assert.exists(html, 'result exists');
+        assert.isString(html, 'result isString');
+    });
+
+    it('should render simple card block', function() {
+        assert.equal($('#simple-card-block').length, 1);
+        assert.include($('#simple-card-block .card-header').html(),
+                    'Simple Card Block');
+        assert.include($('#simple-card-block .card-body').html(),
+                    'Simple card block body');
+    });
+
+    it('should render simple card block w/ template', function() {
+        assert.equal($('#simple-card-block-template').length, 1);
+        assert.include($('#simple-card-block-template .card-header').html(),
+                    'Simple Card Block w/ Template');
+        assert.include($('#simple-card-block-template .card-body').html(),
+                    'Simple card block body w/ Template');
+    });
+
+    it('should render simple card block w/ additional classes', function() {
+        assert.equal($('#card-block-additional-classes').length, 1);
+        assert.isOk($('#card-block-additional-classes').hasClass('additional'));
+        assert.isOk($('#card-block-additional-classes').hasClass('classes'));
+        assert.include($('#card-block-additional-classes .card-header').html(),
+                    'Card Block additional classes');
+        assert.include($('#card-block-additional-classes .card-body').html(),
+                    'Card block additionalClasses');
+    });
+
+    it('should render simple card block w/ block style', function() {
+        assert.equal($('#card-block-style').length, 1);
+        assert.equal($('#card-block-style').attr('style'), 'style string');
+        assert.include($('#card-block-style .card-header').html(),
+                    'Card Block w/ style');
+        assert.include($('#card-block-style .card-body').html(),
+                    'Card block style');
+    });
+
+    it('should render simple card block image top', function() {
+        assert.equal($('#card-block-image-top').length, 1);
+        assert.equal($('#card-block-image-top img.card-img-top').attr('src'), 'http://image-top/image.jpg');
+        assert.include($('#card-block-image-top .card-header').html(),
+                    'Card Block with image');
+        assert.include($('#card-block-image-top .card-body').html(),
+                    'Card block body with image');
+    });
+
+    it('should render simple card block image options', function() {
+        assert.equal($('#card-block-image-with-options').length, 1);
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('src'),
+                'http://image-top/image.jpg');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('alt'),
+                'Alt for card image');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('style'),
+                'style for image');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('resize-to'),
+                'image-resized.jpg');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('resize-width'),
+                '2000');
+        assert.include($('#card-block-image-with-options .card-header').html(),
+                    'Card Block and all options');
+        assert.include($('#card-block-image-with-options .card-body').html(),
+                    'Card block body with image');
+    });
+
+    it('should render simple card block w/ body header', function() {
+        assert.equal($('#card-block-body-header').length, 1);
+        assert.include($('#card-block-body-header .card-header').html(),
+                    'Card Block with body header');
+        assert.include($('#card-block-body-header .card-body').html(),
+                    'Card block body with header');
+        assert.equal($('#card-block-body-header .card-body .card-header .card-title').length, 1);
+        assert.include($('#card-block-body-header .card-body .card-header .card-title').html(), 'Card Body Header');
+    });
+
+});
+
 describe('/tocgroup.html', function() {
     let html;
     let $;

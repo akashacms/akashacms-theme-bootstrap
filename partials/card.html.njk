@@ -1,0 +1,22 @@
+<div class="card {{ additionalClasses }}"
+        {%if id %}id="{{ id }}"{% endif %}
+        {%if style %}style="{{ style }}"{% endif %} >
+    {% if cardImageTop and cardImageTop !== '' -%}
+        <img src="{{ cardImageTop }}" class="card-img-top"
+                {%if cardImageAlt %}alt="{{ cardImageAlt }}"{% endif %}
+                {%if cardImageStyle %}style="{{ cardImageStyle }}"{% endif %}
+                {%if cardImageResizeTo %}resize-to="{{ cardImageResizeTo }}"{% endif %}
+                {%if cardImageResizeWidth %}resize-width="{{ cardImageResizeWidth }}"{% endif %} />
+    {%- endif -%}
+    {%- if header and header !== '' -%}
+        <div class="card-header">{{ header }}</div>
+    {%- endif %}
+    <div class="card-body">
+        {% if bodyHeader and bodyHeader !== '' -%}
+            <div class="card-header">
+                <h5 class="card-title">{{ bodyHeader }}</h5>
+            </div>
+        {%- endif -%}
+        {{ content }}
+    </div>
+</div>

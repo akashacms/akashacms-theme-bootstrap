@@ -1,0 +1,9 @@
+{% macro card_block(id, header, additionalClasses, style, cardImageTop, cardImageAlt, cardImageStyle, cardImageResizeTo, cardImageResizeWidth, bodyHeader, template) -%}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "card.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
