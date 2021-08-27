@@ -8,6 +8,7 @@ let config;
 
 describe('build site', function() {
     it('should construct configuration', async function() {
+        this.timeout(75000);
         config = new akasha.Configuration();
         config.rootURL("https://example.akashacms.com");
         config.configDir = __dirname;
@@ -377,53 +378,70 @@ describe('/carousel(-njk).html', function() {
 
 
 describe('/modal.html', function() {
-    let html;
-    let $;
+    describe('/modal.html', function() {
+        it('should have rendered EJS', async function() {
+            let results = await akasha.readRenderedFile(config, 'modal.html');
+            let html = results.html;
+            let $ = results.$;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'modal.html');
-        html = results.html;
-        $ = results.$;
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            check_modal(html, $)
+        });
     });
 
-    it('should have example-modal', function() {
-        assert.equal($('div#example-modal').length, 1);
-        assert.equal($('button[data-target="#example-modal"]').length, 1);
-        assert.isTrue($('div#example-modal').hasClass('modal'));
-        assert.equal($('div#example-modal').attr('role'), 'dialog');
-        assert.equal($('div#example-modal').attr('aria-labelledby'), 'example-modal-title');
+    describe('/modal-njk.html', function() {
+        it('should have rendered Nunjucks', async function() {
+            let results = await akasha.readRenderedFile(config, 'modal-njk.html');
+            let html = results.html;
+            let $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+
+            check_modal(html, $)
+        });
     });
 
-    it('should have correct modal header', function() {
-        assert.equal($('#example-modal .modal-content .modal-header').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').attr('id'), 'example-modal-title');
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').html(), 'Example Button-Launched Modal');
-        assert.equal($('#example-modal .modal-content .modal-header button').length, 1);
-        assert.isTrue($('#example-modal .modal-content .modal-header button').hasClass('close'));
-        assert.equal($('#example-modal .modal-content .modal-header button').data('dismiss'), 'modal');
-        assert.equal($('#example-modal .modal-content .modal-header button').attr('aria-label'), 'Close');
-    });
+    function check_modal(html, $) {
 
-    it('should have correct modal body', function() {
-        assert.equal($('#example-modal .modal-content .modal-body').length, 1);
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'purus sit amet fermentum');
-        assert.include($('#example-modal .modal-content .modal-body').html(), ' sagittis lacus vel augue');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'vel scelerisque nisl consectetur');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'nulla non metus auctor');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'porta ac consectetur');
-    });
+        it('should have example-modal', function() {
+            assert.equal($('div#example-modal').length, 1);
+            assert.equal($('button[data-target="#example-modal"]').length, 1);
+            assert.isTrue($('div#example-modal').hasClass('modal'));
+            assert.equal($('div#example-modal').attr('role'), 'dialog');
+            assert.equal($('div#example-modal').attr('aria-labelledby'), 'example-modal-title');
+        });
+
+        it('should have correct modal header', function() {
+            assert.equal($('#example-modal .modal-content .modal-header').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').attr('id'), 'example-modal-title');
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').html(), 'Example Button-Launched Modal');
+            assert.equal($('#example-modal .modal-content .modal-header button').length, 1);
+            assert.isTrue($('#example-modal .modal-content .modal-header button').hasClass('close'));
+            assert.equal($('#example-modal .modal-content .modal-header button').data('dismiss'), 'modal');
+            assert.equal($('#example-modal .modal-content .modal-header button').attr('aria-label'), 'Close');
+        });
+
+        it('should have correct modal body', function() {
+            assert.equal($('#example-modal .modal-content .modal-body').length, 1);
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'purus sit amet fermentum');
+            assert.include($('#example-modal .modal-content .modal-body').html(), ' sagittis lacus vel augue');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'vel scelerisque nisl consectetur');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'nulla non metus auctor');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'porta ac consectetur');
+        });
 
 
-    it('should have correct modal footer', function() {
-        assert.equal($('#example-modal .modal-content .modal-footer').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-footer button').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-footer button').data('dismiss'), 'modal');
-        assert.include($('#example-modal .modal-content .modal-footer button').html(), 'Inchide');
-    });
+        it('should have correct modal footer', function() {
+            assert.equal($('#example-modal .modal-content .modal-footer').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-footer button').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-footer button').data('dismiss'), 'modal');
+            assert.include($('#example-modal .modal-content .modal-footer button').html(), 'Inchide');
+        });
+    }
 });
 
 describe('/cards.html', function() {

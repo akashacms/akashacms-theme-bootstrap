@@ -26,3 +26,13 @@
 {%- endif -%}
 {%- include _template -%}
 {%- endmacro %}
+
+{% macro button_launched_modal(id, buttonText, closeButtonText, title, modelAdditionalClasses, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "button-modal.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{% endmacro %}
