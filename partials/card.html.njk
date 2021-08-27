@@ -1,12 +1,12 @@
-<div class="card {{ additionalClasses }}"
-        {%if id %}id="{{ id }}"{% endif %}
-        {%if style %}style="{{ style }}"{% endif %} >
+<div class="card {{ additionalClasses | safe }}"
+        {%if id %}id="{{ id | safe }}"{% endif %}
+        {%if style %}style="{{ style | safe }}"{% endif %} >
     {% if cardImageTop and cardImageTop !== '' -%}
-        <img src="{{ cardImageTop }}" class="card-img-top"
-                {%if cardImageAlt %}alt="{{ cardImageAlt }}"{% endif %}
-                {%if cardImageStyle %}style="{{ cardImageStyle }}"{% endif %}
-                {%if cardImageResizeTo %}resize-to="{{ cardImageResizeTo }}"{% endif %}
-                {%if cardImageResizeWidth %}resize-width="{{ cardImageResizeWidth }}"{% endif %} />
+        <img src="{{ cardImageTop | safe }}" class="card-img-top"
+                {%if cardImageAlt %}alt="{{ cardImageAlt | safe }}"{% endif %}
+                {%if cardImageStyle %}style="{{ cardImageStyle | safe }}"{% endif %}
+                {%if cardImageResizeTo %}resize-to="{{ cardImageResizeTo | safe }}"{% endif %}
+                {%if cardImageResizeWidth %}resize-width="{{ cardImageResizeWidth | safe }}"{% endif %} />
     {%- endif -%}
     {%- if header and header !== '' -%}
         <div class="card-header">{{ header }}</div>
