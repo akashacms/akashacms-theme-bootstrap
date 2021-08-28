@@ -40,7 +40,7 @@
 {%- include _template -%}
 {%- endmacro %}
 
-{% macro collapse_item(id, thumburl, collapsed, parentID, template) %}
+{% macro collapse_item(id, thumburl, collapsed, parentID, title, template) %}
 {%- set content = caller() -%}
 {%- if template -%}
 {%- set _template = template -%}
