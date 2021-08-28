@@ -19,13 +19,32 @@
 {%- endmacro %}
 
 {% macro carousel_item(id, isactive, href, alt, width, resizeto, resizewidth, style, captiontitle, captionbody, template) %}
-{% if isactive and isactive === "true" %}
+{% if isactive and ( isactive === "true" or isactive === "isactive" ) %}
 {% set isactive = "active" %}
 {% endif %}
 {%- if template -%}
 {%- set _template = template -%}
 {%- else -%}
 {%- set _template = "carousel-item.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{% macro collapse_container(id, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "collapse-container.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{% macro collapse_item(id, thumburl, collapsed, parentID, template) %}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "collapse-item.html.njk" -%}
 {%- endif -%}
 {%- include _template -%}
 {%- endmacro %}

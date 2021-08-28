@@ -243,74 +243,91 @@ describe('/collapse.html', function() {
     let html;
     let $;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'collapse.html');
-        html = results.html;
-        $ = results.$;
+    describe('/collapse.html', function() {
+        it('should have rendered ', async function() {
+            let results = await akasha.readRenderedFile(config, 'collapse.html');
+            html = results.html;
+            $ = results.$;
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+        });
     });
 
-    it('should have accordion1', function() {
-        assert.equal($('div#accordion1').length, 1);
+    describe('/collapse-njk.html', function() {
+        it('should have rendered ', async function() {
+            let results = await akasha.readRenderedFile(config, 'collapse-njk.html');
+            html = results.html;
+            $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+        });
     });
 
-    it('should have item1 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-1').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('target'), '#collapse-collapse-item-1');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-expanded'), 'true');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-controls'), 'collapse-collapse-item-1');
-        assert.include($('div#accordion1 #heading-collapse-item-1 h2 button').html(), 'First collapsible item');
-    });
+    function check_collapse(html, $) {
 
-    it('should have item2 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-2').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('target'), '#collapse-collapse-item-2');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-controls'), 'collapse-collapse-item-2');
-        assert.include($('div#accordion1 #heading-collapse-item-2 h2 button').html(), 'Second collapsible item');
-    });
+        it('should have accordion1', function() {
+            assert.equal($('div#accordion1').length, 1);
+        });
 
-    it('should have item3 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-3').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('target'), '#collapse-collapse-item-3');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-controls'), 'collapse-collapse-item-3');
-        assert.include($('div#accordion1 #heading-collapse-item-3 h2 button').html(), 'Third collapsible item');
-    });
+        it('should have item1 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-1').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('target'), '#collapse-collapse-item-1');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-expanded'), 'true');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-controls'), 'collapse-collapse-item-1');
+            assert.include($('div#accordion1 #heading-collapse-item-1 h2 button').html(), 'First collapsible item');
+        });
 
-    it('should have item4 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-4').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('target'), '#collapse-collapse-item-4');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-controls'), 'collapse-collapse-item-4');
-        assert.include($('div#accordion1 #heading-collapse-item-4 h2 button').html(), 'Fourth collapsible item');
-    });
+        it('should have item2 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-2').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('target'), '#collapse-collapse-item-2');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-controls'), 'collapse-collapse-item-2');
+            assert.include($('div#accordion1 #heading-collapse-item-2 h2 button').html(), 'Second collapsible item');
+        });
+
+        it('should have item3 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-3').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('target'), '#collapse-collapse-item-3');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-controls'), 'collapse-collapse-item-3');
+            assert.include($('div#accordion1 #heading-collapse-item-3 h2 button').html(), 'Third collapsible item');
+        });
+
+        it('should have item4 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-4').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('target'), '#collapse-collapse-item-4');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-controls'), 'collapse-collapse-item-4');
+            assert.include($('div#accordion1 #heading-collapse-item-4 h2 button').html(), 'Fourth collapsible item');
+        });
+    }
+
 });
 
 describe('/carousel(-njk).html', function() {

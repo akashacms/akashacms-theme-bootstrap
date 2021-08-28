@@ -1,0 +1,25 @@
+---
+title: Collapse test
+layout: default.html.ejs
+---
+
+{% import "ak_bootstrap_macros.njk" as ak_bootstrap with context %}
+
+{% call ak_bootstrap.collapse_container(id="accordion1") %}
+    {% call ak_bootstrap.collapse_item(id="collapse-item-1",
+            parentID="accordion1", title="First collapsible item") %}
+        Text for first collapsible item
+    {% endcall %}
+    {% call ak_bootstrap.collapse_item(id="collapse-item-2",
+            parentID="accordion1", title="Second collapsible item") %}
+        Text for second collapsible item
+    {% endcall %}
+    {% call ak_bootstrap.collapse_item(id="collapse-item-3",
+            parentID="accordion1", title="Third collapsible item") %}
+        Text for third collapsible item
+    {% endcall %}
+    {% call ak_bootstrap.collapse_item(id="collapse-item-4",
+            parentID="accordion1", title="Fourth collapsible item") %}
+        Text for fourth collapsible item
+    {% endcall %}
+{% endcall %}
