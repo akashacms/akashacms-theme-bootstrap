@@ -41,6 +41,7 @@
 {%- endmacro %}
 
 {% macro collapse_item(id, thumburl, collapsed, parentID, template) %}
+{%- set content = caller() -%}
 {%- if template -%}
 {%- set _template = template -%}
 {%- else -%}

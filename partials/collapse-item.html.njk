@@ -7,11 +7,11 @@
             </span>
         {% endif %}
       <h2 class="mb-0 col">
-        <button class="btn btn-link {% if collapsed and collapsed !== '' %}{{ collapsed }}{% endif %}"
+        <button class="btn btn-link {% if collapsed and collapsed === 'true' %}{{ collapsed }}{% endif %}"
                 type="button" 
                 data-toggle="collapse" 
                 data-target="#collapse-{{ id | safe }}" 
-                aria-expanded="{% if collapsed and collapsed !== '' %}false{% else %}true{% endif %}"
+                aria-expanded="{% if collapsed and collapsed === 'true' %}false{% else %}true{% endif %}"
                 aria-controls="collapse-{{ id | safe }}">
           {{ title | safe }}
         </button>
@@ -19,7 +19,7 @@
     </div>
 
     <div id="collapse-{{ id | safe }}" 
-            class="collapse {% if collapsed and collapsed !== '' %}show{% endif %}" 
+            class="collapse {% if collapsed and collapsed !== 'true' %}show{% endif %}" 
             aria-labelledby="heading-{{ id | safe }}" 
             data-parent="#{{ parentID | safe }}">
       <div class="card-body">
