@@ -19,6 +19,9 @@
 {%- endmacro %}
 
 {% macro carousel_item(id, isactive, href, alt, width, resizeto, resizewidth, style, captiontitle, captionbody, template) %}
+{% if isactive and isactive === "true" %}
+{% set isactive = "active" %}
+{% endif %}
 {%- if template -%}
 {%- set _template = template -%}
 {%- else -%}
