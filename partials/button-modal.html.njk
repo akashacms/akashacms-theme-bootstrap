@@ -1,8 +1,8 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ id | safe}}">
   {{ buttonText | safe }}
 </button>
-{%- if dofade -%}
-{%- set _dofade = dofade -%}
+{%- if dofade and dofade === "no" -%}
+{%- set _dofade = "" -%}
 {%- else -%}
 {%- set _dofade = "fade" -%}
 {%- endif -%}
