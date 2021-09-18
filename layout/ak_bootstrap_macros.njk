@@ -157,7 +157,7 @@
  #
  # The `title` parameter is the text of the <h5 class="modal-title">
  #}
-{% macro button_launched_modal(id, buttonText, closeButtonText, title, modelAdditionalClasses, template) %}
+{% macro button_launched_modal(id, buttonText, closeButtonText, title, modelAdditionalClasses, dofade, template) %}
 {%- set content = caller() -%}
 {%- if template -%}
 {%- set _template = template -%}

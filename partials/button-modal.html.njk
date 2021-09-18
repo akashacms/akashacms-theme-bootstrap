@@ -1,8 +1,17 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ id | safe}}">
   {{ buttonText | safe }}
 </button>
-<div class="modal fade" id="{{ id | safe}}" tabindex="-1" role="dialog" 
-            aria-labelledby="{{ id | safe}}-title" aria-hidden="true">
+{%- if dofade -%}
+{%- set _dofade = dofade -%}
+{%- else -%}
+{%- set _dofade = "fade" -%}
+{%- endif -%}
+<div class="modal {{ _dofade }}"
+     id="{{ id | safe}}"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="{{ id | safe}}-title"
+     aria-hidden="true">
   <div class="modal-dialog {{ modelAdditionalClasses | safe }}" role="document">
     <div class="modal-content">
       <div class="modal-header">
