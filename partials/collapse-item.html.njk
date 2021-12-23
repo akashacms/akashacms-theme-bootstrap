@@ -1,0 +1,29 @@
+<div class="card" id="{{ id | safe }}">
+    <div class="card-header row" id="heading-{{ id | safe }}">
+        {% if thumburl and thumburl !== '' %}
+            <span class="col-auto">
+                <img src="{{ thumburl | safe }}" 
+                    style="max-width: 100px; width: 100%;"/>
+            </span>
+        {% endif %}
+      <h2 class="mb-0 col">
+        <button class="btn btn-link {% if collapsed and collapsed === 'true' %}{{ collapsed }}{% endif %}"
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#collapse-{{ id | safe }}" 
+                aria-expanded="{% if collapsed and collapsed === 'true' %}false{% else %}true{% endif %}"
+                aria-controls="collapse-{{ id | safe }}">
+          {{ title | safe }}
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapse-{{ id | safe }}" 
+            class="collapse {% if collapsed and collapsed !== 'true' %}show{% endif %}" 
+            aria-labelledby="heading-{{ id | safe }}" 
+            data-parent="#{{ parentID | safe }}">
+      <div class="card-body">
+        {{ content }}
+      </div>
+    </div>
+</div>

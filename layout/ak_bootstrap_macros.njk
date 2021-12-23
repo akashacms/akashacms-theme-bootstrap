@@ -1,0 +1,168 @@
+
+{# Equivalent to the <card-block> element.
+ #
+ # The `id` parameter becomes the ID of the wrapper <div>.
+ #
+ # The `header` parameter is used in <div class="card-header">.
+ #
+ # The `additionalClasses` parameter is added to the `class`
+ # attribute of the wrapper <div>.  The `style` attribute is used
+ # in the wrapper <div> as well.
+ #
+ # The `cardImageTop` parameter is a URL for an image to use
+ # as <img class="card-img-top" ... >
+ #
+ # The `cardImageAlt` parameter provides text for the `alt` attribute.
+ # The `cardImageStyle` parameter is used in the `style` attribute.
+ #
+ # The `cardImageResizeWidth` parameter causes the image file to be
+ # resized to the named width.  The `cardImageResizeTo` parameter
+ # controls the file name for the resized file.
+ #
+ # The `bodyHeader` attribute is used in `<h5 class="card-title">`
+ #
+ # The content of the macro invocation is used in the
+ # body of `<div class="card-body">`.
+ #}
+{% macro card_block(id, header, additionalClasses, style, cardImageTop, cardImageAlt, cardImageStyle, cardImageResizeTo, cardImageResizeWidth, bodyHeader, template) -%}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "card.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{# Equivalent to the <carousel-container> element.
+ #
+ # The `id` parameter becomes the ID of the wrapper <div>.
+ #
+ # The `optionalclasses` parameter is added to the `class`
+ # attribute of the wrapper <div>.  The `style` attribute is used
+ # in the wrapper <div> as well.
+ #
+ # The `template` parameter lets you override the template used
+ # to render the item.  By default `carousel-container.html.njk` is used.
+ #}
+{% macro carousel_container(id, optionalclasses, width, style, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "carousel-container.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{# Equivalent to the <corousel-item> element.  It is meant to be used
+ # within a `carousel_container`.
+ #
+ # The `id` parameter becomes the ID of the wrapper <div>.
+ #
+ # The `isactive` parameter determines whether this item is 
+ # the active item.
+ #
+ # The `href` parameter is the URL for an image.
+ #
+ # The `alt` parameter is text to use as the `alt` attribute
+ # of the image.
+ #
+ # The `width` parameter is the horizontal size of the image.  The
+ # `resizeto` parameter gives the file name to use when resizing the
+ # image, which will be substituted into the `href`.  The `resizewidth`
+ # parameter is what triggers resizing, and says what image width to
+ # use in the resized image file.
+ #
+ # The `style` attribute is attached to the `img` element.
+ #
+ # The `captiontitle` and `captionbody` parameters control any
+ # subtext used in the carousel item.
+ #
+ # The `template` parameter lets you override the template used
+ # to render the item.  By default `carousel-item.html.njk` is used.
+ #}
+{% macro carousel_item(id, isactive, href, alt, width, resizeto, resizewidth, style, captiontitle, captionbody, template) %}
+{% if isactive and ( isactive === "true" or isactive === "isactive" ) %}
+{% set isactive = "active" %}
+{% endif %}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "carousel-item.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{# Equivalent to the <collapse-container> element.
+ #
+ # The `id` parameter converts to the `id=` attribute of 
+ # the wrapper <div>.
+ #
+ # The `template` parameter lets you change the template
+ # being used, otherwise `collapse-container.html.njk` is used.
+ #
+ # The body of the `call` invocation is passed as `content` to
+ # the template.
+ #}
+{% macro collapse_container(id, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "collapse-container.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{# Equivalent to the <collapse-item> element.
+ #
+ # The `id` parameter converts to the `id=` attribute of 
+ # the wrapper <div>.
+ #
+ # The `template` parameter lets you change the template
+ # being used, otherwise `collapse-item.html.njk` is used.
+ #
+ # If `thumburl` is specified, the template places the image
+ # floating to the left.
+ #
+ # The default template creates a `card` with controls set up
+ # to handle collapsing.  The `title` parameter is displayed in the
+ # button which controls collapse behavior.  The `collapsed`
+ # parameter says whether it starts out collapsed, or expanded.
+ # The `parentID` parameter must refer to the enclosing container.
+ #
+ #}
+{% macro collapse_item(id, thumburl, collapsed, parentID, title, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "collapse-item.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{%- endmacro %}
+
+{# Equivalent to the <button-launched-modal> element.
+ #
+ # The `id` parameter converts to the `id=` attribute of 
+ # the wrapper <div>.
+ #
+ # The `template` parameter lets you change the template
+ # being used, otherwise `button-modal.html.njk` is used.
+ #
+ # The `buttonText` parameter is the text of the controlling button.
+ # The `closeButtonText` parameter is the text of the Close
+ # button on the modal.
+ #
+ # The `title` parameter is the text of the <h5 class="modal-title">
+ #}
+{% macro button_launched_modal(id, buttonText, closeButtonText, title, modelAdditionalClasses, dofade, template) %}
+{%- set content = caller() -%}
+{%- if template -%}
+{%- set _template = template -%}
+{%- else -%}
+{%- set _template = "button-modal.html.njk" -%}
+{%- endif -%}
+{%- include _template -%}
+{% endmacro %}

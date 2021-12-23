@@ -1,0 +1,34 @@
+---
+title: Card Blocks in Nunjuks test
+layout: default.html.ejs
+---
+
+{% import "ak_bootstrap_macros.njk" as ak_bootstrap with context %}
+
+{% call ak_bootstrap.card_block("simple-card-block", "Simple Card Block") -%}
+Simple card block body
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("simple-card-block-template", "Simple Card Block w/ Template", template="card.html.njk") -%}
+Simple card block body w/ Template
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("card-block-additional-classes", "Card Block additional classes", additionalClasses="additional classes") -%}
+Card block additionalClasses
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("card-block-style", "Card Block w/ style", style="style string") -%}
+Card block style
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("card-block-image-top", "Card Block with image", cardImageTop="http://image-top/image.jpg") -%}
+Card block body with image
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("card-block-image-with-options", "Card Block and all options", cardImageTop="http://image-top/image.jpg", cardImageAlt="Alt for card image", cardImageStyle="style for image", cardImageResizeTo="image-resized.jpg", cardImageResizeWidth="2000") -%}
+Card block body with image
+{%- endcall %}
+
+{% call ak_bootstrap.card_block("card-block-body-header", "Card Block with body header", bodyHeader="Card Body Header") -%}
+Card block body with header
+{%- endcall %}

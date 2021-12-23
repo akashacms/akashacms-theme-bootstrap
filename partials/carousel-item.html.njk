@@ -1,0 +1,17 @@
+<div class="carousel-item {{ isactive | safe }}"
+        {% if id %}id="{{ id | safe }}"{% endif %}>
+    <img src="{{ href | safe }}" class="d-block w-100"
+        {% if alt %}alt="{{ alt | safe }}"{% endif %}
+        {% if width %}width="{{ width | safe }}"{% endif %}
+        {% if resizeto %}{{ resizeto | safe }}{% endif %}
+        {% if resizewidth %}{{ resizewidth | safe }}{% endif %}
+        {% if style %}{{ style | safe }}{% endif %} />
+    {%- if captiontitle -%}
+        <div class="carousel-caption d-none d-md-block">
+            <h5>{{ captiontitle | safe }}</h5>
+            {%- if captionbody -%}
+                <span>{{ captionbody | safe }}</span>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+</div>

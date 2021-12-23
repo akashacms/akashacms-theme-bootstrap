@@ -3,23 +3,51 @@ const akasha   = require('akasharender');
 const plugin = require('../index');
 const { assert } = require('chai');
 
-const config = new akasha.Configuration();
-config.rootURL("https://example.akashacms.com");
-config.configDir = __dirname;
-config.addLayoutsDir('layouts')
-      .addPartialsDir('partials')
-      .addDocumentsDir('documents');
-config.use(plugin);
-config.use(require('akashacms-base'));
-config.setMahabhutaConfig({
-    recognizeSelfClosing: true,
-    recognizeCDATA: true,
-    decodeEntities: true
-});
-config.prepare();
+let config;
 
 
 describe('build site', function() {
+    it('should construct configuration', async function() {
+        this.timeout(75000);
+        config = new akasha.Configuration();
+        config.rootURL("https://example.akashacms.com");
+        config.configDir = __dirname;
+        config.addLayoutsDir('layouts')
+            .addPartialsDir('partials')
+            .addDocumentsDir('documents');
+        config.use(plugin);
+        config.use(require('akashacms-base'));
+        config.setMahabhutaConfig({
+            recognizeSelfClosing: true,
+            recognizeCDATA: true,
+            decodeEntities: true
+        });
+        config.prepare();
+    });
+
+    it('should run setup', async function() {
+        this.timeout(75000);
+        await akasha.cacheSetup(config);
+        await Promise.all([
+            akasha.setupDocuments(config),
+            akasha.setupAssets(config),
+            akasha.setupLayouts(config),
+            akasha.setupPartials(config)
+        ])
+        let filecache = await akasha.filecache;
+        await Promise.all([
+            filecache.documents.isReady(),
+            filecache.assets.isReady(),
+            filecache.layouts.isReady(),
+            filecache.partials.isReady()
+        ]);
+    });
+
+    it('should copy assets', async function() {
+        this.timeout(75000);
+        await config.copyAssets();
+    });
+
     it('should build site', async function() {
         this.timeout(25000);
         let failed = false;
@@ -31,6 +59,11 @@ describe('build site', function() {
             }
         }
         assert.isFalse(failed);
+    });
+
+    it('should close the configuration', async function() {
+        this.timeout(75000);
+        await akasha.closeCaches();
     });
 });
 
@@ -210,172 +243,222 @@ describe('/collapse.html', function() {
     let html;
     let $;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'collapse.html');
-        html = results.html;
-        $ = results.$;
+    describe('/collapse.html', function() {
+        it('should have rendered ', async function() {
+            let results = await akasha.readRenderedFile(config, 'collapse.html');
+            html = results.html;
+            $ = results.$;
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+        });
     });
 
-    it('should have accordion1', function() {
-        assert.equal($('div#accordion1').length, 1);
+    describe('/collapse-njk.html', function() {
+        it('should have rendered ', async function() {
+            let results = await akasha.readRenderedFile(config, 'collapse-njk.html');
+            html = results.html;
+            $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+        });
     });
 
-    it('should have item1 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-1').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('target'), '#collapse-collapse-item-1');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-expanded'), 'true');
-        assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-controls'), 'collapse-collapse-item-1');
-        assert.include($('div#accordion1 #heading-collapse-item-1 h2 button').html(), 'First collapsible item');
-    });
+    function check_collapse(html, $) {
 
-    it('should have item2 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-2').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('target'), '#collapse-collapse-item-2');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-controls'), 'collapse-collapse-item-2');
-        assert.include($('div#accordion1 #heading-collapse-item-2 h2 button').html(), 'Second collapsible item');
-    });
+        it('should have accordion1', function() {
+            assert.equal($('div#accordion1').length, 1);
+        });
 
-    it('should have item3 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-3').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('target'), '#collapse-collapse-item-3');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-controls'), 'collapse-collapse-item-3');
-        assert.include($('div#accordion1 #heading-collapse-item-3 h2 button').html(), 'Third collapsible item');
-    });
+        it('should have item1 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-1').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-1 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').data('target'), '#collapse-collapse-item-1');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-expanded'), 'true');
+            assert.equal($('div#accordion1 #heading-collapse-item-1 h2 button').attr('aria-controls'), 'collapse-collapse-item-1');
+            assert.include($('div#accordion1 #heading-collapse-item-1 h2 button').html(), 'First collapsible item');
+        });
 
-    it('should have item4 headings', function() {
-        assert.equal($('div#accordion1 #heading-collapse-item-4').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4').hasClass('card-header'));
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2').length, 1);
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').length, 1);
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn'));
-        assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn-link'));
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('toggle'), 'collapse');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('target'), '#collapse-collapse-item-4');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-expanded'), 'false');
-        assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-controls'), 'collapse-collapse-item-4');
-        assert.include($('div#accordion1 #heading-collapse-item-4 h2 button').html(), 'Fourth collapsible item');
-    });
+        it('should have item2 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-2').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-2 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').data('target'), '#collapse-collapse-item-2');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-2 h2 button').attr('aria-controls'), 'collapse-collapse-item-2');
+            assert.include($('div#accordion1 #heading-collapse-item-2 h2 button').html(), 'Second collapsible item');
+        });
+
+        it('should have item3 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-3').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-3 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').data('target'), '#collapse-collapse-item-3');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-3 h2 button').attr('aria-controls'), 'collapse-collapse-item-3');
+            assert.include($('div#accordion1 #heading-collapse-item-3 h2 button').html(), 'Third collapsible item');
+        });
+
+        it('should have item4 headings', function() {
+            assert.equal($('div#accordion1 #heading-collapse-item-4').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4').hasClass('card-header'));
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2').length, 1);
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').length, 1);
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn'));
+            assert.isTrue($('div#accordion1 #heading-collapse-item-4 h2 button').hasClass('btn-link'));
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('toggle'), 'collapse');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').data('target'), '#collapse-collapse-item-4');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-expanded'), 'false');
+            assert.equal($('div#accordion1 #heading-collapse-item-4 h2 button').attr('aria-controls'), 'collapse-collapse-item-4');
+            assert.include($('div#accordion1 #heading-collapse-item-4 h2 button').html(), 'Fourth collapsible item');
+        });
+    }
+
 });
 
-describe('/carousel.html', function() {
-    let html;
-    let $;
+describe('/carousel(-njk).html', function() {
+    describe('/carousel.html', function() {
+        it('should have rendered EJS', async function() {
+            let results = await akasha.readRenderedFile(config, 'carousel.html');
+            let html = results.html;
+            let $ = results.$;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'carousel.html');
-        html = results.html;
-        $ = results.$;
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            check_carousel(html, $)
+        });
     });
 
-    it('should have carousel1', function() {
-        assert.equal($('div#carousel1').length, 1);
+    describe('/carousel-njk.html', function() {
+        it('should have rendered Nunjucks', async function() {
+            let results = await akasha.readRenderedFile(config, 'carousel-njk.html');
+            let html = results.html;
+            let $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+
+            check_carousel(html, $)
+        });
     });
 
-    it('should have correct number carousel-items', function() {
-        assert.equal($('div#carousel1 .carousel-item').length, 5);
-    });
+    function check_carousel(html, $) {
+        it('should have carousel1', function() {
+            assert.equal($('div#carousel1').length, 1);
+        });
 
-    it('should have correct carousel-item 1', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(1) img').attr('src'), 'img/APTERA-8360-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(1) .carousel-caption').html(), 'Aptera');
-    });
+        it('should have correct number carousel-items', function() {
+            assert.equal($('div#carousel1 .carousel-item').length, 5);
+        });
 
-    it('should have correct carousel-item 2', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(2) img').attr('src'), 'img/2009_green_bike.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(2) .carousel-caption').html(), 'Vectrix electric maxi-scooter');
-    });
+        it('should have correct carousel-item 1', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(1) img').attr('src'), 'img/APTERA-8360-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(1) .carousel-caption').html(), 'Aptera');
+        });
 
-    it('should have correct carousel-item 3', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(3) img').attr('src'), 'img/loladrayson-3-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(3) .carousel-caption').html(), 'Drayson Racing electric race car based on Lola chassis');
-    });
+        it('should have correct carousel-item 2', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(2) img').attr('src'), 'img/2009_green_bike.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(2) .carousel-caption').html(), 'Vectrix electric maxi-scooter');
+        });
 
-    it('should have correct carousel-item 4', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(4) img').attr('src'), 'img/karma18-web.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(4) .carousel-caption').html(), 'Fisker Karma');
-    });
+        it('should have correct carousel-item 3', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(3) img').attr('src'), 'img/loladrayson-3-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(3) .carousel-caption').html(), 'Drayson Racing electric race car based on Lola chassis');
+        });
 
-    it('should have correct carousel-item 5', function() {
-        assert.equal($('div#carousel1 .carousel-item:nth-child(5) img').attr('src'), 'img/PP125.jpg');
-        assert.include($('div#carousel1 .carousel-item:nth-child(5) .carousel-caption').html(), 'UQM drive train for electric vehicles');
-    });
+        it('should have correct carousel-item 4', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(4) img').attr('src'), 'img/karma18-web.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(4) .carousel-caption').html(), 'Fisker Karma');
+        });
+
+        it('should have correct carousel-item 5', function() {
+            assert.equal($('div#carousel1 .carousel-item:nth-child(5) img').attr('src'), 'img/PP125.jpg');
+            assert.include($('div#carousel1 .carousel-item:nth-child(5) .carousel-caption').html(), 'UQM drive train for electric vehicles');
+        });
+    }
 });
 
 
 describe('/modal.html', function() {
-    let html;
-    let $;
+    describe('/modal.html', function() {
+        it('should have rendered EJS', async function() {
+            let results = await akasha.readRenderedFile(config, 'modal.html');
+            let html = results.html;
+            let $ = results.$;
 
-    it('should have rendered', async function() {
-        let results = await akasha.readRenderedFile(config, 'modal.html');
-        html = results.html;
-        $ = results.$;
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
 
-        assert.exists(html, 'result exists');
-        assert.isString(html, 'result isString');
+            check_modal(html, $)
+        });
     });
 
-    it('should have example-modal', function() {
-        assert.equal($('div#example-modal').length, 1);
-        assert.equal($('button[data-target="#example-modal"]').length, 1);
-        assert.isTrue($('div#example-modal').hasClass('modal'));
-        assert.equal($('div#example-modal').attr('role'), 'dialog');
-        assert.equal($('div#example-modal').attr('aria-labelledby'), 'example-modal-title');
+    describe('/modal-njk.html', function() {
+        it('should have rendered Nunjucks', async function() {
+            let results = await akasha.readRenderedFile(config, 'modal-njk.html');
+            let html = results.html;
+            let $ = results.$;
+
+            assert.exists(html, 'result exists');
+            assert.isString(html, 'result isString');
+
+            check_modal(html, $)
+        });
     });
 
-    it('should have correct modal header', function() {
-        assert.equal($('#example-modal .modal-content .modal-header').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').attr('id'), 'example-modal-title');
-        assert.equal($('#example-modal .modal-content .modal-header .modal-title').html(), 'Example Button-Launched Modal');
-        assert.equal($('#example-modal .modal-content .modal-header button').length, 1);
-        assert.isTrue($('#example-modal .modal-content .modal-header button').hasClass('close'));
-        assert.equal($('#example-modal .modal-content .modal-header button').data('dismiss'), 'modal');
-        assert.equal($('#example-modal .modal-content .modal-header button').attr('aria-label'), 'Close');
-    });
+    function check_modal(html, $) {
 
-    it('should have correct modal body', function() {
-        assert.equal($('#example-modal .modal-content .modal-body').length, 1);
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'purus sit amet fermentum');
-        assert.include($('#example-modal .modal-content .modal-body').html(), ' sagittis lacus vel augue');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'vel scelerisque nisl consectetur');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'nulla non metus auctor');
-        assert.include($('#example-modal .modal-content .modal-body').html(), 'porta ac consectetur');
-    });
+        it('should have example-modal', function() {
+            assert.equal($('div#example-modal').length, 1);
+            assert.equal($('button[data-target="#example-modal"]').length, 1);
+            assert.isTrue($('div#example-modal').hasClass('modal'));
+            assert.equal($('div#example-modal').attr('role'), 'dialog');
+            assert.equal($('div#example-modal').attr('aria-labelledby'), 'example-modal-title');
+        });
+
+        it('should have correct modal header', function() {
+            assert.equal($('#example-modal .modal-content .modal-header').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').attr('id'), 'example-modal-title');
+            assert.equal($('#example-modal .modal-content .modal-header .modal-title').html(), 'Example Button-Launched Modal');
+            assert.equal($('#example-modal .modal-content .modal-header button').length, 1);
+            assert.isTrue($('#example-modal .modal-content .modal-header button').hasClass('close'));
+            assert.equal($('#example-modal .modal-content .modal-header button').data('dismiss'), 'modal');
+            assert.equal($('#example-modal .modal-content .modal-header button').attr('aria-label'), 'Close');
+        });
+
+        it('should have correct modal body', function() {
+            assert.equal($('#example-modal .modal-content .modal-body').length, 1);
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'purus sit amet fermentum');
+            assert.include($('#example-modal .modal-content .modal-body').html(), ' sagittis lacus vel augue');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'vel scelerisque nisl consectetur');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'nulla non metus auctor');
+            assert.include($('#example-modal .modal-content .modal-body').html(), 'porta ac consectetur');
+        });
 
 
-    it('should have correct modal footer', function() {
-        assert.equal($('#example-modal .modal-content .modal-footer').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-footer button').length, 1);
-        assert.equal($('#example-modal .modal-content .modal-footer button').data('dismiss'), 'modal');
-        assert.include($('#example-modal .modal-content .modal-footer button').html(), 'Inchide');
-    });
+        it('should have correct modal footer', function() {
+            assert.equal($('#example-modal .modal-content .modal-footer').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-footer button').length, 1);
+            assert.equal($('#example-modal .modal-content .modal-footer button').data('dismiss'), 'modal');
+            assert.include($('#example-modal .modal-content .modal-footer button').html(), 'Inchide');
+        });
+    }
 });
 
 describe('/cards.html', function() {
@@ -458,6 +541,93 @@ describe('/cards.html', function() {
         assert.isTrue($('#card2-resized .card-body blockquote footer').hasClass('blockquote-footer'));
         assert.include($('#card2-resized .card-body blockquote footer').html(), 'Nikola Tesla in');
     });
+});
+
+describe('/cards-njk.html', function() {
+    let html;
+    let $;
+
+    it('should have rendered', async function() {
+        let results = await akasha.readRenderedFile(config, 'cards-njk.html');
+        html = results.html;
+        $ = results.$;
+
+        assert.exists(html, 'result exists');
+        assert.isString(html, 'result isString');
+    });
+
+    it('should render simple card block', function() {
+        assert.equal($('#simple-card-block').length, 1);
+        assert.include($('#simple-card-block .card-header').html(),
+                    'Simple Card Block');
+        assert.include($('#simple-card-block .card-body').html(),
+                    'Simple card block body');
+    });
+
+    it('should render simple card block w/ template', function() {
+        assert.equal($('#simple-card-block-template').length, 1);
+        assert.include($('#simple-card-block-template .card-header').html(),
+                    'Simple Card Block w/ Template');
+        assert.include($('#simple-card-block-template .card-body').html(),
+                    'Simple card block body w/ Template');
+    });
+
+    it('should render simple card block w/ additional classes', function() {
+        assert.equal($('#card-block-additional-classes').length, 1);
+        assert.isOk($('#card-block-additional-classes').hasClass('additional'));
+        assert.isOk($('#card-block-additional-classes').hasClass('classes'));
+        assert.include($('#card-block-additional-classes .card-header').html(),
+                    'Card Block additional classes');
+        assert.include($('#card-block-additional-classes .card-body').html(),
+                    'Card block additionalClasses');
+    });
+
+    it('should render simple card block w/ block style', function() {
+        assert.equal($('#card-block-style').length, 1);
+        assert.equal($('#card-block-style').attr('style'), 'style string');
+        assert.include($('#card-block-style .card-header').html(),
+                    'Card Block w/ style');
+        assert.include($('#card-block-style .card-body').html(),
+                    'Card block style');
+    });
+
+    it('should render simple card block image top', function() {
+        assert.equal($('#card-block-image-top').length, 1);
+        assert.equal($('#card-block-image-top img.card-img-top').attr('src'), 'http://image-top/image.jpg');
+        assert.include($('#card-block-image-top .card-header').html(),
+                    'Card Block with image');
+        assert.include($('#card-block-image-top .card-body').html(),
+                    'Card block body with image');
+    });
+
+    it('should render simple card block image options', function() {
+        assert.equal($('#card-block-image-with-options').length, 1);
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('src'),
+                'http://image-top/image.jpg');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('alt'),
+                'Alt for card image');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('style'),
+                'style for image');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('resize-to'),
+                'image-resized.jpg');
+        assert.equal($('#card-block-image-with-options img.card-img-top').attr('resize-width'),
+                '2000');
+        assert.include($('#card-block-image-with-options .card-header').html(),
+                    'Card Block and all options');
+        assert.include($('#card-block-image-with-options .card-body').html(),
+                    'Card block body with image');
+    });
+
+    it('should render simple card block w/ body header', function() {
+        assert.equal($('#card-block-body-header').length, 1);
+        assert.include($('#card-block-body-header .card-header').html(),
+                    'Card Block with body header');
+        assert.include($('#card-block-body-header .card-body').html(),
+                    'Card block body with header');
+        assert.equal($('#card-block-body-header .card-body .card-header .card-title').length, 1);
+        assert.include($('#card-block-body-header .card-body .card-header .card-title').html(), 'Card Body Header');
+    });
+
 });
 
 describe('/tocgroup.html', function() {

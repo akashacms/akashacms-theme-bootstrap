@@ -38,6 +38,7 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
         this[_plugin_options] = options;
         options.config = config;
 		config.addPartialsDir(path.join(__dirname, 'partials'));
+        config.addLayoutsDir(path.join(__dirname, 'layout'));
         config.addMahabhuta(module.exports.mahabhutaArray(options));
 	}
 
@@ -100,7 +101,8 @@ class DropdownMenu extends mahabhuta.CustomElement {
         const buttonType = $element.attr('button-type');
         const buttonSize = $element.attr('button-size');
         const additionalClasses = $element.attr('additional-classes');
-        dirty();
+        // Seems to not be needed
+        // dirty();
         return akasha.partial(this.array.options.config, template, {
             id, dropdownLabel: label,
             buttonType: typeof buttonType !== 'undefined' && buttonType !== ''
@@ -204,7 +206,8 @@ class CollapseContainer extends mahabhuta.CustomElement {
                 ? $element.attr('template')
                 : "collapse-container.html.ejs";
         const id = $element.attr('id');
-        dirty();
+        // Seems to not be needed
+        // dirty();
         return akasha.partial(this.array.options.config, template, {
             id: id,
             content: $element.html()
@@ -223,7 +226,8 @@ class CollapseItem extends mahabhuta.CustomElement {
 		const title = $element.attr('title');
 		const collapsed = $element.attr('collapsed');
 		const thumburl = $element.attr('thumb-url');
-		dirty();
+        // Seems to not be needed
+		// dirty();
 		const data = {
 			parentID, id, title, collapsed, thumburl,
 			content: $element.html()
@@ -316,7 +320,8 @@ class ButtonModal extends mahabhuta.CustomElement {
 		if (!buttonText || buttonText === '') {
 			throw new Error(`button-launched-modal requires a button-text value`);
 		}
-		dirty();
+        // Seems to not be needed
+		// dirty();
 		const data = {
 			id, title, modelAdditionalClasses, closeButtonText, buttonText,
 			content: $element.html()
@@ -349,7 +354,8 @@ class CardBlock extends mahabhuta.CustomElement {
                 ? $element.attr('card-image-alt') : "";
         const cardImageStyle = $element.attr('card-image-style')
                 ? $element.attr('card-image-style') : "";
-        dirty();
+        // Seems to not be needed
+        // dirty();
         const data = {
             id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
@@ -388,7 +394,8 @@ class CardQuote extends mahabhuta.CustomElement {
                 ? $element.attr('quote-source') : "";
         const quoteTitle = $element.attr('quote-title')
                 ? $element.attr('quote-title') : "";
-        dirty();
+        // Seems to not be needed
+        // dirty();
         const data = {
             id, header, style, additionalClasses, bodyHeader, 
             cardImageTop, cardImageAlt, cardImageStyle,
