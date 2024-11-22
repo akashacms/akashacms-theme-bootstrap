@@ -29,3 +29,6 @@ node_modules
 
 bootstrap/bower_components
 test/out
+
+package-lock.json
+

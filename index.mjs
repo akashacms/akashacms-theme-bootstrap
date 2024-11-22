@@ -17,18 +17,18 @@
  *  limitations under the License.
  */
 
-'use strict';
-
-const path  = require('path');
-const akasha = require('akasharender');
+import path from 'node:path';
+import akasha from 'akasharender';
 const mahabhuta = akasha.mahabhuta;
+
+const __dirname = import.meta.dirname;
 
 const pluginName = "@akashacms/theme-bootstrap";
 
 const _plugin_config = Symbol('config');
 const _plugin_options = Symbol('options');
 
-module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
+export class ThemeBootstrapPlugin extends akasha.Plugin {
 	constructor() {
 		super(pluginName);
 	}
@@ -39,12 +39,12 @@ module.exports = class ThemeBootstrapPlugin extends akasha.Plugin {
         options.config = config;
 		config.addPartialsDir(path.join(__dirname, 'partials'));
         config.addLayoutsDir(path.join(__dirname, 'layout'));
-        config.addMahabhuta(module.exports.mahabhutaArray(options));
+        config.addMahabhuta(mahabhutaArray(options));
 	}
 
 };
 
-module.exports.mahabhutaArray = function(options) {
+export function mahabhutaArray(options) {
     let ret = new mahabhuta.MahafuncArray(pluginName, options);
     ret.addMahafunc(new EmbedResponsiveIframe());
     ret.addMahafunc(new FixBlockquote());

@@ -1,7 +1,10 @@
 
-const akasha   = require('akasharender');
-const plugin = require('../index');
-const { assert } = require('chai');
+import akasha from 'akasharender';
+import { ThemeBootstrapPlugin } from '../index.mjs';
+import { BasePlugin } from '@akashacms/plugins-base';
+import { assert } from 'chai';
+
+const __dirname = import.meta.dirname;
 
 let config;
 
@@ -15,8 +18,8 @@ describe('build site', function() {
         config.addLayoutsDir('layouts')
             .addPartialsDir('partials')
             .addDocumentsDir('documents');
-        config.use(plugin);
-        config.use(require('akashacms-base'));
+        config.use(ThemeBootstrapPlugin);
+        config.use(BasePlugin);
         config.setMahabhutaConfig({
             recognizeSelfClosing: true,
             recognizeCDATA: true,
@@ -27,20 +30,20 @@ describe('build site', function() {
 
     it('should run setup', async function() {
         this.timeout(75000);
-        await akasha.cacheSetup(config);
-        await Promise.all([
-            akasha.setupDocuments(config),
-            akasha.setupAssets(config),
-            akasha.setupLayouts(config),
-            akasha.setupPartials(config)
-        ])
-        let filecache = await akasha.filecache;
-        await Promise.all([
-            filecache.documents.isReady(),
-            filecache.assets.isReady(),
-            filecache.layouts.isReady(),
-            filecache.partials.isReady()
-        ]);
+        await akasha.setup(config);
+        // await Promise.all([
+        //     akasha.setupDocuments(config),
+        //     akasha.setupAssets(config),
+        //     akasha.setupLayouts(config),
+        //     akasha.setupPartials(config)
+        // ])
+        // let filecache = await akasha.filecache;
+        // await Promise.all([
+        //     filecache.documents.isReady(),
+        //     filecache.assets.isReady(),
+        //     filecache.layouts.isReady(),
+        //     filecache.partials.isReady()
+        // ]);
     });
 
     it('should copy assets', async function() {
@@ -61,10 +64,6 @@ describe('build site', function() {
         assert.isFalse(failed);
     });
 
-    it('should close the configuration', async function() {
-        this.timeout(75000);
-        await akasha.closeCaches();
-    });
 });
 
 describe('/blockquote.html', function() {
@@ -699,4 +698,12 @@ describe('/tocgroup.html', function() {
         assert.equal($('h2#metadata').html(), 'Metadata in page header');
     });
 
+});
+
+describe('Close', function() {
+
+    it('should close the configuration', async function() {
+        this.timeout(75000);
+        await akasha.closeCaches();
+    });
 });
