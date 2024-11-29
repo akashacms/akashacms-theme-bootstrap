@@ -1,3 +1,10 @@
+
+{#- <p>collapse-item.html.njk
+  id {{ id }}
+  parentID {{ parentID }}
+  collapsed {{ collapsed }}
+</p> -#}
+
 <div class="card" id="{{ id | safe }}">
     <div class="card-header row" id="heading-{{ id | safe }}">
         {% if thumburl and thumburl !== '' %}
@@ -7,7 +14,7 @@
             </span>
         {% endif %}
       <h2 class="mb-0 col">
-        <button class="btn btn-link {% if collapsed and collapsed === 'true' %}{{ collapsed }}{% endif %}"
+        <button class="btn btn-link btn-block {% if collapsed and collapsed === 'true' %}{{ collapsed }}{% endif %}"
                 type="button" 
                 data-toggle="collapse" 
                 data-target="#collapse-{{ id | safe }}" 
