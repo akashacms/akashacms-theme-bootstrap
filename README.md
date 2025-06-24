@@ -2,6 +2,8 @@
 
 This AkashaCMS plugin provides several niceties for using Bootstrap to help improve the look and feel of an AkashaCMS website.
 
-This release is tested to work with Bootstrap 4.3.x, jQuery 3.3.x and Popper.js 1.14.x.
+This is the main branch and is not the source for any of the packages.
 
-For documentation see https://akashacms.com/plugins/theme-bootstrap/index.html
+For `"@akashacms/theme-bootstrap` compatible with Bootstrap 4.6.x, see the 4.6.0 branch.
+
+For `"@akashacms/theme-bootstrap` compatible with Bootstrap 5.1.x, wait until it has been implemented.
