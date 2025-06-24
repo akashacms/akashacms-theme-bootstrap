@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2013-2015 David Herron
+ * Copyright 2013-2025 David Herron
  *
  * This file is part of AkashaCMS-tagged-content (http://akashacms.com/).
  *
@@ -18,52 +18,63 @@
  */
 
 import path from 'node:path';
-import akasha from 'akasharender';
+import akasha, {
+    Configuration,
+    CustomElement,
+    Munger,
+    PageProcessor
+} from 'akasharender';
 const mahabhuta = akasha.mahabhuta;
 
 const __dirname = import.meta.dirname;
 
 const pluginName = "@akashacms/theme-bootstrap";
 
-const _plugin_config = Symbol('config');
-const _plugin_options = Symbol('options');
-
 export class ThemeBootstrapPlugin extends akasha.Plugin {
 	constructor() {
 		super(pluginName);
 	}
 
+    #config;
+
     configure(config, options) {
-        this[_plugin_config] = config;
-        this[_plugin_options] = options;
-        options.config = config;
+        this.#config = config;
+        // this.config = config;
+        this.akasha = config.akasha;
+        this.options = options ? options : {};
+        this.options.config = config;
 		config.addPartialsDir(path.join(__dirname, 'partials'));
         config.addLayoutsDir(path.join(__dirname, 'layout'));
-        config.addMahabhuta(mahabhutaArray(options));
+        config.addMahabhuta(mahabhutaArray(options, config, this.akasha, this));
 	}
 
 };
 
-export function mahabhutaArray(options) {
+export function mahabhutaArray(
+    options,
+    config, // ?: Configuration,
+    akasha, // ?: any,
+    plugin  // ?: Plugin
+) {
     let ret = new mahabhuta.MahafuncArray(pluginName, options);
-    ret.addMahafunc(new EmbedResponsiveIframe());
-    ret.addMahafunc(new FixBlockquote());
-    ret.addMahafunc(new DropdownMenu());
-    ret.addMahafunc(new DropdownMenuItem());
-    ret.addMahafunc(new DropdownMenuButton());
-    ret.addMahafunc(new DropdownMenuHeader());
-    ret.addMahafunc(new DropdownMenuDivider());
-    ret.addMahafunc(new CollapseContainer());
-    ret.addMahafunc(new CollapseItem());
-    ret.addMahafunc(new CarouselContainer());
-    ret.addMahafunc(new CarouselItem());
-    ret.addMahafunc(new ButtonModal());
-    ret.addMahafunc(new CardBlock());
-    ret.addMahafunc(new CardQuote());
+    ret.addMahafunc(new EmbedResponsiveIframe(config, akasha, plugin));
+    ret.addMahafunc(new FixBlockquote(config, akasha, plugin));
+    ret.addMahafunc(new DropdownMenu(config, akasha, plugin));
+    ret.addMahafunc(new DropdownMenuItem(config, akasha, plugin));
+    ret.addMahafunc(new DropdownMenuButton(config, akasha, plugin));
+    ret.addMahafunc(new DropdownMenuHeader(config, akasha, plugin));
+    ret.addMahafunc(new DropdownMenuDivider(config, akasha, plugin));
+    ret.addMahafunc(new CollapseContainer(config, akasha, plugin));
+    ret.addMahafunc(new CollapseItem(config, akasha, plugin));
+    ret.addMahafunc(new CarouselContainer(config, akasha, plugin));
+    ret.addMahafunc(new CarouselItem(config, akasha, plugin));
+    ret.addMahafunc(new ButtonModal(config, akasha, plugin));
+    ret.addMahafunc(new CardBlock(config, akasha, plugin));
+    ret.addMahafunc(new CardQuote(config, akasha, plugin));
     return ret;
 };
 
-class EmbedResponsiveIframe extends mahabhuta.Munger {
+class EmbedResponsiveIframe extends Munger {
     get selector() { return '.embed-responsive iframe'; }
 
     process($, $link, metadata, dirty) {
@@ -73,7 +84,7 @@ class EmbedResponsiveIframe extends mahabhuta.Munger {
 
 // For some reason Bootstrap wants this:
 //      <blockquote class="blockquote"></blockquote>
-class FixBlockquote extends mahabhuta.Munger {
+class FixBlockquote extends Munger {
     get selector() { return 'blockquote'; }
 
     process($, $link, metadata, dirty) {
@@ -83,7 +94,7 @@ class FixBlockquote extends mahabhuta.Munger {
     }
 }
 
-class DropdownMenu extends mahabhuta.CustomElement {
+class DropdownMenu extends CustomElement {
     get elementName() { return "dropdown-menu"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -103,7 +114,7 @@ class DropdownMenu extends mahabhuta.CustomElement {
         const additionalClasses = $element.attr('additional-classes');
         // Seems to not be needed
         // dirty();
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
             id, dropdownLabel: label,
             buttonType: typeof buttonType !== 'undefined' && buttonType !== ''
                 ? buttonType : 'btn-secondary',
@@ -118,7 +129,7 @@ class DropdownMenu extends mahabhuta.CustomElement {
     }
 }
 
-class DropdownMenuItem extends mahabhuta.CustomElement {
+class DropdownMenuItem extends CustomElement {
     get elementName() { return "dropdown-menu-item"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -141,11 +152,11 @@ class DropdownMenuItem extends mahabhuta.CustomElement {
             isDisabled: typeof isDisabled !== 'undefined' && isDisabled !== ''
                 ? "disabled" : ""
         };
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 
-class DropdownMenuButton extends mahabhuta.CustomElement {
+class DropdownMenuButton extends CustomElement {
     get elementName() { return "dropdown-menu-button"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -161,7 +172,7 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
 		}
         const isActive = $element.attr('active');
         const isDisabled = $element.attr('disabled');
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
             href, label,
             isActive: typeof isActive !== 'undefined' && isActive !== ''
                 ? "active" : "",
@@ -171,7 +182,7 @@ class DropdownMenuButton extends mahabhuta.CustomElement {
     }
 }
 
-class DropdownMenuHeader extends mahabhuta.CustomElement {
+class DropdownMenuHeader extends CustomElement {
     get elementName() { return "dropdown-menu-header"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -181,25 +192,25 @@ class DropdownMenuHeader extends mahabhuta.CustomElement {
 		if (!label || label === '') {
 			throw new Error(`dropdown-menu-button requires an label value`);
 		}
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
             label
         });
     }
 }
 
-class DropdownMenuDivider extends mahabhuta.CustomElement {
+class DropdownMenuDivider extends CustomElement {
     get elementName() { return "dropdown-menu-divider"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
                 ? $element.attr('template')
                 : "bootstrap-dropdown-divider.html.ejs";
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
             
         });
     }
 }
 
-class CollapseContainer extends mahabhuta.CustomElement {
+class CollapseContainer extends CustomElement {
     get elementName() { return "collapse-container"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -208,14 +219,14 @@ class CollapseContainer extends mahabhuta.CustomElement {
         const id = $element.attr('id');
         // Seems to not be needed
         // dirty();
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
             id: id,
             content: $element.html()
         });
     }
 }
 
-class CollapseItem extends mahabhuta.CustomElement {
+class CollapseItem extends CustomElement {
     get elementName() { return "collapse-item"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -233,11 +244,11 @@ class CollapseItem extends mahabhuta.CustomElement {
 			content: $element.html()
 		};
 		// console.log(`collapse-item data `, data);
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 
-class CarouselContainer extends mahabhuta.CustomElement {
+class CarouselContainer extends CustomElement {
     get elementName() { return "carousel-container"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -250,7 +261,7 @@ class CarouselContainer extends mahabhuta.CustomElement {
 				? $element.attr('width') : "100%";
 		const style = $element.attr('style')
 				? `style="${$element.attr('style')}"` : "";
-        return akasha.partial(this.array.options.config, template, {
+        return this.akasha.partial(this.config, template, {
 			id: id,
 			width, style, optionalclasses,
 			content: $element.html()
@@ -258,7 +269,7 @@ class CarouselContainer extends mahabhuta.CustomElement {
     }
 }
 
-class CarouselItem extends mahabhuta.CustomElement {
+class CarouselItem extends CustomElement {
     get elementName() { return "carousel-item"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -297,11 +308,11 @@ class CarouselItem extends mahabhuta.CustomElement {
 			width, style, resizewidth, resizeto
 		};
 		// console.log(`carousel-item sending data `, data);
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 
-class ButtonModal extends mahabhuta.CustomElement {
+class ButtonModal extends CustomElement {
     get elementName() { return "button-launched-modal"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -327,11 +338,11 @@ class ButtonModal extends mahabhuta.CustomElement {
 			content: $element.html()
 		};
 		// console.log(`carousel-item sending data `, data);
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 
-class CardBlock extends mahabhuta.CustomElement {
+class CardBlock extends CustomElement {
     get elementName() { return "card-block"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -363,11 +374,11 @@ class CardBlock extends mahabhuta.CustomElement {
             content: $element.html()
         };
         // console.log(`carousel-item sending data `, data);
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 
-class CardQuote extends mahabhuta.CustomElement {
+class CardQuote extends CustomElement {
     get elementName() { return "card-quote"; }
     async process($element, metadata, dirty) {
         const template = $element.attr('template') 
@@ -404,7 +415,7 @@ class CardQuote extends mahabhuta.CustomElement {
             content: $element.html()
         };
         // console.log(`carousel-item sending data `, data);
-        return akasha.partial(this.array.options.config, template, data);
+        return this.akasha.partial(this.config, template, data);
     }
 }
 

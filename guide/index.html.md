@@ -16,7 +16,7 @@ Therefore the following should be added to the `package.json` of your AkashaCMS 
 ```json
 "dependencies": {
     ...
-    "@akashacms/theme-bootstrap": "^0.7.x",
+    "@akashacms/theme-bootstrap": "^4.6.x.x",
     ...
     "jquery": "^3.3.x",
     "bootstrap": "^4.3.x",
@@ -27,8 +27,6 @@ Therefore the following should be added to the `package.json` of your AkashaCMS 
 
 **NOTE** This release supplants an earlier package, `akashacms-theme-bootstrap`.  That package supports Bootstrap 3, and has been marked as deprecated in the npm registry.
 
-We are preparing to merge Bootstrap v4 support to the mainstream of this module.  [See Pull Request](https://github.com/akashacms/akashacms-theme-bootstrap/pull/2)
-
 The `bootstrap`, `popper.js` and `jquery` modules don't provide any Node.js functionality, but are a quick way to access the Bootstrap and jQuery libraries.  All of them can be retrieved using the corresponding CDN URL's, if you prefer.
 
 Once added to `package.json` run: `npm install` to download the packages.
@@ -37,9 +35,11 @@ Once added to `package.json` run: `npm install` to download the packages.
 
 To use the Bootstrap framework we must use Bootstrap JavaScript and CSS files in the generated HTML.  There are several ways of doing so, what follows is the recommended method.  It starts by adding Bootstrap, jQuery and Popper.js dependencies to the `package.json` as shown earlier.
 
-Add the following to `config.js`
+Add the following to `config.mjs`
 
 ```js
+import { ThemeBootstrapPlugin } from '@akashacms/theme-bootstrap';
+// ..
 config
     .addAssetsDir({
         src: 'node_modules/bootstrap/dist',
@@ -59,12 +59,13 @@ This first section mounts the jQuery and Bootstrap distribution into your websit
 
 ```js
 config
-    ...
-    .use(require('@akashacms/theme-bootstrap'))
-    ...
+    .use(ThemeBootstrapPlugin)
+    // ...
 ```
 
 This adds the AkashaCMS plugin to your configuration.  The effects of adding this plugin are documented below.
+
+Because of what this plugin does, which is to override the templates of other plugins, it must be the first plugin added in your configuration.
 
 ```js
 config
